@@ -1,0 +1,19 @@
+bool LinkedList::del(char c) {
+	for (Node *prev = head, *node; prev->next != nullptr; prev = node) {
+		node = prev->next;
+		if (node->data == c) {
+			prev->next = node->next;
+			delete node;
+			return true;
+		}
+	}
+	return false;
+}
+[ x y z ]
+Found 'y'
+[ x z ]
+Couldn't find 'y'
+[ z ]
+Couldn't find 'y'
+[ ]
+Couldn't find 'y'
