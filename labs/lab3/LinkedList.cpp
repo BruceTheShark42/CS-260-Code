@@ -49,8 +49,8 @@ bool LinkedList::delRec(Node *prev, char c) {
 			prev->next = node->next;
 			delete node;
 			return true;
-		} else
-			return delRec(prev->next, c);
+		}
+		return delRec(prev->next, c);
 	}
 	return false;
 }
