@@ -13,22 +13,22 @@ void LinkedList::deleteRec(Node *node) {
 	}
 }
 
-void LinkedList::add(char c) {
+void LinkedList::add(int c) {
 	addRec(head, c);
 }
 
-void LinkedList::addRec(Node *prev, char c) {
+void LinkedList::addRec(Node *prev, int c) {
 	if (prev->next != nullptr)
 		addRec(prev->next, c);
 	else
 		new Node(prev, c);
 }
 
-bool LinkedList::find(char c) const {
+bool LinkedList::find(int c) const {
 	findRec(head->next, c);
 }
 
-bool LinkedList::findRec(Node *node, char c) const {
+bool LinkedList::findRec(Node *node, int c) const {
 	if (node != nullptr) {
 		if (node->data == c)
 			return true;
@@ -38,11 +38,11 @@ bool LinkedList::findRec(Node *node, char c) const {
 	return false;
 }
 
-bool LinkedList::del(char c) {
+bool LinkedList::del(int c) {
 	delRec(head, c);
 }
 
-bool LinkedList::delRec(Node *prev, char c) {
+bool LinkedList::delRec(Node *prev, int c) {
 	Node *node = prev->next;
 	if (node != nullptr) {
 		if (node->data == c) {
@@ -53,6 +53,23 @@ bool LinkedList::delRec(Node *prev, char c) {
 		return delRec(prev->next, c);
 	}
 	return false;
+}
+
+int LinkedList::sum() const {
+	int sum = 0;
+	for (Node *node = head->next; node != nullptr; node = node->next)
+		sum += node->data;
+	return sum;
+}
+
+int LinkedList::sumR() const {
+	return sumRRec(head->next);
+}
+
+int LinkedList::sumRRec(Node *node) const {
+	if (node == nullptr)
+		return 0;
+	return node->data + sumRRec(node->next);
 }
 
 std::ostream& operator<<(std::ostream& ostr, LinkedList& list) {
@@ -69,5 +86,5 @@ void printRec(std::ostream& ostr, LinkedList::Node *node) {
 }
 
 // LinkedList::Node
-LinkedList::Node::Node(char data, Node *next) : data(data), next(next) {}
-LinkedList::Node::Node(Node *prev, char data) : data(data), next(prev->next) { prev->next = this; }
+LinkedList::Node::Node(int data, Node *next) : data(data), next(next) {}
+LinkedList::Node::Node(Node *prev, int data) : data(data), next(prev->next) { prev->next = this; }

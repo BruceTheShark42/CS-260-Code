@@ -1,0 +1,28 @@
+int countR(node *head) {
+	return countRRec(head, head->next);
+}
+
+int countRRec(node *head, node *n) {
+	return head != n ? 1 + countRRec(head, n->next) : 1;
+}
+int sumR(node *head) {
+	return sumRRec(head, head->next);
+}
+
+int sumRRec(node *head, node *n) {
+	return head != n ? n->data + sumRRec(head, n->next) : n->data;
+}
+Here is the original list: 2 -> 19 -> 2 -> 48 -> 6 -> 0 -> 70 -> 2
+
+This list contains 8 number of items 
+Iterative total: 8
+Recursive total: 8
+Iterative sum: 149
+Recursive sum: 149
+
+
+The resulting list is... 2 -> 19 -> 2 -> 48 -> 6 -> 0 -> 70 -> 2
+
+This list contains 8 number of items 
+The sum of all data is: 149
+Total nodes deleted: 8

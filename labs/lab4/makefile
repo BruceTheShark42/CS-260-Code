@@ -1,5 +1,5 @@
-main: main.o RandomArray.o LinkedList.o
-	g++ -o main main.o RandomArray.o LinkedList.o
+main: main.o LinkedList.o
+	g++ -o main main.o LinkedList.o
 
 main.o: main.cpp LinkedList.h
 	g++ -c main.cpp
