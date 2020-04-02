@@ -1,0 +1,21 @@
+Bruce Cosgrove
+
+ 1) Create a RecordLabel
+ 2) Print the Artists from the RecordLabel
+ 3) Add an Artist to the RecordLabel
+ 4) Add a Song to the same Artist
+ 5) Set the Song's views to something else
+ 6) Set the Song's likes to something else
+ 7) Add another Song to another Artist
+ 8) Set the second Song's views to something else
+ 9) Set the second Song's likes to something else
+10) Print the Artists from the RecordLabel again
+11) Remove all songs with fewer than M views
+	This should be in between Song one's views
+	and Song two's views. Song two should have 
+	more views than Song one so that the next 
+	step gives a more interesting result.
+12) Add another Song to the second Artist
+13) Print all Songs for the second Artist
+14) End the program and check for crashes and 
+	memory leaks. If none of either, then great!

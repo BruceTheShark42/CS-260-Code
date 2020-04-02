@@ -1,0 +1,144 @@
+Bruce Cosgrove
+
+The methods that the ADT must have are as follows:
+	1) The constructor to allocate all required memory 
+		for the RecordLabel and initialize values.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: no parameters are
+			passed into the constructor (unless there is 
+			also a copy constructor). Therefore, there is 
+			no concept sharing whatsoever.
+		Recursive: no.
+	2) The destructor to deallocate all required memory.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: destructors do not 
+			take in any parameters in C++ as far as I am 
+			aware of. This is the same reason why the 
+			constructor "shields" the caller, simply 
+			because there is nothing to sheild.
+			Songs.
+		Recursive: no.
+	3) A method to add a new Artist.
+		Success/Failure Report: returns true if the 
+			Artist is not already in the RecordLabel.
+			Returns false if the Artist already existed 
+			prior to this function call.
+		Abstract Concept Sheilding: the only parameters 
+			will be the Artist's name, top story, and 
+			description, which will all be C-style strings.
+			This method will handle the dynamic allocation 
+			of the Artist object that will contain these 
+			attributes, as well as its linked list of 
+			Songs.
+		Recursive: no.
+	4) A method to add a new Song for an Artist.
+		Success/Failure Report: if the Artist does not 
+			exist, create the Artist and then add the 
+			Song and return true. If the Artist does 
+			exist, however, if they already have the 
+			Song, return false, otherwise, add the Song
+			and return true.
+		Abstract Concept Sheilding: the parameters of 
+			this method will be the Artist's name and 
+			all of what a Song needs: its title, length,
+			and number of views and likes. Song's 
+			constructor will handle the creation of the 
+			Song, while the Artist will handle adding 
+			the created Song to its list of Songs.
+		Recursive: no.
+	5) A method to change the number of views an 
+		Artist's song has.
+		Success/Failure Report: returns true if both 
+			the Artist exists and the Artist's Song exist.
+			Otherwise, returns false.
+		Abstract Concept Sheilding: the parameters 
+			of this method are the Artist's name, the 
+			Song's name, and the number of views to 
+			change the Song's views to.
+		Recursive: no.
+	6) A method to change the number of likes an
+		Artist's song has.
+		Success/Failure Report: same as the previous 
+			method, except instead of views, this method 
+			handles likes.
+		Abstract Concept Sheilding: same as the previous 
+			method, except instead of views, this method 
+			handles likes.
+		Recursive: no.
+	7) A method to display all Songs for an Artist.
+		Success/Failure Report: If the Artist does not 
+			exist, print something like: "The Artist does 
+			not exist!" and return false. Otherwise, print 
+			all  of the Artist's Songs. However, if the 
+			Artist does not have any songs, print something 
+			like: "The Artist <artist name> does not have 
+			any songs!" This would still return true 
+			because all of the Artist's songs, of which 
+			there were none, were in fact printed. This 
+			is because this method would normally print one
+			song per the number of Songs the Artist had. If
+			the Artist has zero songs, it should therefore
+			print zero songs, which it indeed does.
+		Abstract Concept Sheilding: the only parameter 
+			is the Artist's name, and no other data such as 
+			the Artist's linked list of songs. A, that 
+			would be irrelivant, B, that linked list is 
+			private, and the Artist has public member 
+			functions to alter the list in one way or
+			another. The same concept applies for all other 
+			methods listed here.
+		Recursive: no.
+	8) A method to display all Artists.
+		Success/Failure Report: this method is very 
+			similar to the previous method, except instead 
+			of printing Songs for a particular Artist, it 
+			prints all Artists associated with this 
+			RecordLabel. If this RecordLabel has no Artists 
+			associated with itself, then this method would 
+			print something like: "There are no artists 
+			this record label is associated with!" This 
+			time, however, this method does has a void 
+			return type because, as explained in the 
+			previous method's description, when there are 
+			zero things to print, the number of things 
+			that should be printed is still zero.
+		Abstract Concept Sheilding: there are no 
+			parameters, and aside from the return 
+			value, there is no direct way this method can 
+			communicate to the caller.
+		Recursive: no.
+	9) A method to remove all Songs with fewer than a 
+		given number of views.
+		Success/Failure Report: instead of true or 
+			false, this method returns an unsigned integer
+			which is the number of Songs that were removed. 
+			This would result in zero if no songs were 
+			removed, so if the caller was expecting to 
+			remove at least one Song, they can check if 
+			this method returned zero or not. They can also 
+			just use the number this method returns for 
+			whatever they desire.
+		Abstract Concept Sheilding: the only parameter 
+			this method has is the number of views in which 
+			to remove Songs by. The actual removal is 
+			handled by this method, and no information 
+			about any individual Song is communicated back 
+			to the caller.
+		Recursive: no
+
+Note:
+The reason why all of the above methods will not be 
+recursive is because the implementation of the LinkedList 
+class will handle all of that "magic", so all the 
+RecordLabel class has to do is call its methods.
+
+Data structures that will be used in the program:
+	1) RecordLabel
+		a) Artist
+			I) Song
+	2) LinkedList (templated so that I can use this for 
+		both a RecordLabel's Artists and an Artist's Songs)
+		a) Node
+
+Most, if not all, of the LinkedList's methods will be 
+recursive as I find it more enjoyable to code.
