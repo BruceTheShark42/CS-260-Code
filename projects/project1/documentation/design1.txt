@@ -126,19 +126,25 @@ The methods that the ADT must have are as follows:
 			to the caller.
 		Recursive: no
 
-Note:
-The reason why all of the above methods will not be 
-recursive is because the implementation of the LinkedList 
-class will handle all of that "magic", so all the 
-RecordLabel class has to do is call its methods.
+Notes:
+	1) The reason why all of the above methods will not be 
+		recursive is because the implementation of the 
+		LinkedList class will handle all of that "magic", 
+		so all the RecordLabel class has to do is call its 
+		methods.
+	2) The Songs will use their number of likes to 
+		determine their popularity. The reason for this is 
+		because the number of views are already going to be 
+		used for other things, but not the likes.
 
 Data structures that will be used in the program:
 	1) RecordLabel
-		a) Artist
-			I) Song
-	2) LinkedList (templated so that I can use this for 
-		both a RecordLabel's Artists and an Artist's Songs)
+	2) ArtistList
 		a) Node
+	3) Artist
+	4) SongList
+		a) Node (different from ArtistList's Node)
+	5) Song
 
-Most, if not all, of the LinkedList's methods will be 
+Most, if not all, of the Lists' methods will be 
 recursive as I find it more enjoyable to code.
