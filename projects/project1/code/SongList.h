@@ -10,10 +10,12 @@ public:
 	SongList();
 	~SongList();
 	
-	bool addSong(const char *title, const float &length, const unsigned int &views, const unsigned int &likes);
-	bool removeUnpopularSongs(const unsigned int &likes);
-	bool setSongViews(const char *title, const unsigned int &views);
-	bool setSongLikes(const char *title, const unsigned int &likes);
+	bool addSong(const char *title, const float &length, const int &views, const int &likes);
+	bool removeUnpopularSongs(const int &likes);
+	int getSongViews(const char *title) const;
+	int getSongLikes(const char *title) const;
+	bool setSongViews(const char *title, const int &views);
+	bool setSongLikes(const char *title, const int &likes);
 private:
 	struct Node {
 		Node(Song *song = nullptr, Node *next = nullptr);
@@ -26,6 +28,7 @@ private:
 	void deleteRec(Node *node);
 	void insertNodeInOrder(Node *node);
 	Node* removeNode(Node *prev);
+	Node* getNodeWithSongTitle(const char *title) const;
 	
 	friend std::ostream& operator<<(std::ostream &ostr, const SongList &list);
 	friend void printRec(std::ostream &ostr, SongList::Node *node);

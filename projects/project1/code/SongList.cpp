@@ -13,11 +13,16 @@ void SongList::deleteRec(Node *node) {
 	}
 }
 
-bool SongList::addSong(const char *title, const float &length, const unsigned int &views, const unsigned int &likes) {
-	insertNodeInOrder(new Node(new Song(title, length, views, likes)));
+bool SongList::addSong(const char *title, const float &length, const int &views, const int &likes) {
+	Node *node = getNodeWithSongTitle(title);
+	if (node == nullptr) {
+		insertNodeInOrder(new Node(new Song(title, length, views, likes)));
+		return true;
+	}
+	return false;
 }
 
-bool SongList::removeUnpopularSongs(const unsigned int &likes) {
+bool SongList::removeUnpopularSongs(const int &likes) {
 	Node *prev = head;
 	while (prev->next != nullptr) {
 		if (prev->next->song->getLikes() < likes)
@@ -27,25 +32,44 @@ bool SongList::removeUnpopularSongs(const unsigned int &likes) {
 	}
 }
 
-bool SongList::setSongViews(const char *title, const unsigned int &views) {
+SongList::Node* SongList::getNodeWithSongTitle(const char *title) const {
 	Node *node = head->next;
 	while (node != nullptr) {
-		Song *song = node->song;
-		if (song->hasTitle(title)) {
-			song->setViews(views);
-			return true;
-		}
+		if (node->song->hasTitle(title))
+			return node;
 		node = node->next;
+	}
+	return nullptr;
+}
+
+int SongList::getSongViews(const char *title) const {
+	Node *node = getNodeWithSongTitle(title);
+	if (node != nullptr)
+		return node->song->getViews();
+	return -1;
+}
+
+bool SongList::setSongViews(const char *title, const int &views) {
+	Node *node = getNodeWithSongTitle(title);
+	if (node != nullptr) {
+		node->song->setViews(views);
+		return true;
 	}
 	return false;
 }
 
-bool SongList::setSongLikes(const char *title, const unsigned int &likes) {
+int SongList::getSongLikes(const char *title) const {
+	Node *node = getNodeWithSongTitle(title);
+	if (node != nullptr)
+		return node->song->getLikes();
+	return -1;
+}
+
+bool SongList::setSongLikes(const char *title, const int &likes) {
+	// Can't use getNodeWithSongTitle(title) because the previous node is needed
 	Node *prev = head;
 	while (prev->next != nullptr) {
-		Song *song = prev->next->song;
-		if (song->hasTitle(title)) {
-			song->setLikes(likes);
+		if (prev->next->song->hasTitle(title)) {
 			// Remove the node from the list and put it in the correct place
 			insertNodeInOrder(removeNode(prev));
 			return true;
@@ -89,7 +113,7 @@ std::ostream& operator<<(std::ostream& ostr, const SongList &list) {
 
 void printRec(std::ostream& ostr, SongList::Node *node) {
 	if (node != nullptr) {
-		ostr << "----------------------------\n" << *node->song;
+		ostr << *node->song;
 		printRec(ostr, node->next);
 	}
 }
