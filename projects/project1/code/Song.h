@@ -16,8 +16,9 @@ public:
 	void setViews(const unsigned int &views);
 	unsigned int getLikes() const;
 	void setLikes(const unsigned int &likes);
-	friend std::ostream& operator<<(std::ostream &ostr, const Song &song);
 private:
+	friend std::ostream& operator<<(std::ostream &ostr, const Song &song);
+	
 	char *title;
 	float length;
 	unsigned int views;

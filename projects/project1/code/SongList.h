@@ -11,10 +11,9 @@ public:
 	~SongList();
 	
 	bool addSong(const char *title, const float &length, const unsigned int &views, const unsigned int &likes);
-	bool removeUnpopularSongs(const char *title, const unsigned int &likes);
+	bool removeUnpopularSongs(const unsigned int &likes);
 	bool setSongViews(const char *title, const unsigned int &views);
 	bool setSongLikes(const char *title, const unsigned int &likes);
-	friend std::ostream& operator<<(std::ostream& ostr, const SongList &list);
 private:
 	struct Node {
 		Node(Song *song = nullptr, Node *next = nullptr);
@@ -25,8 +24,13 @@ private:
 	} *head;
 	
 	void deleteRec(Node *node);
-	void removeNode(Node *prev);
+	void insertNodeInOrder(Node *node);
+	Node* removeNode(Node *prev);
+	
+	friend std::ostream& operator<<(std::ostream &ostr, const SongList &list);
+	friend void printRec(std::ostream &ostr, SongList::Node *node);
 };
 
-std::ostream& operator<<(std::ostream& ostr, const SongList &list);
+std::ostream& operator<<(std::ostream &ostr, const SongList &list);
+void printRec(std::ostream &ostr, SongList::Node *node);
 #endif
