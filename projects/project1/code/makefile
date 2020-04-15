@@ -1,8 +1,18 @@
-main: main.o SongList.o Song.o
-	g++ -o main main.o SongList.o Song.o
+# I know there are ways to automate this process
+# Could you let me know some ways to do that?
+# Thanks!
 
-main.o: main.cpp SongList.h Song.h
+main: main.o RecordLabel.o Artist.o SongList.o Song.o
+	g++ -o main main.o RecordLabel.o Artist.o SongList.o Song.o
+
+main.o: main.cpp RecordLabel.h Artist.h SongList.h Song.h
 	g++ -c main.cpp
+
+RecordLabel.o: RecordLabel.cpp RecordLabel.h Artist.h SongList.h Song.h
+	g++ -c RecordLabel.cpp
+
+Artist.o: Artist.cpp Artist.h SongList.h Song.h
+	g++ -c Artist.cpp
 
 SongList.o: SongList.cpp SongList.h Song.h
 	g++ -c SongList.cpp
@@ -17,7 +27,4 @@ memrun:
 	valgrind ./main
 
 clean:
-	rm *.o
-
-clobber:
-	rm main
+	rm *.o main

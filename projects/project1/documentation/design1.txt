@@ -136,15 +136,19 @@ Notes:
 		determine their popularity. The reason for this is 
 		because the number of views are already going to be 
 		used for other things, but not the likes.
+	3) I could have made a templated Node class, but that, 
+		I feel, would require more typing.
 
 Data structures that will be used in the program:
 	1) RecordLabel
+		a) Node
 	2) ArtistList
 		a) Node
 	3) Artist
 	4) SongList
-		a) Node (different from ArtistList's Node)
+		a) Node
 	5) Song
 
-Most, if not all, of the Lists' methods will be 
-recursive as I find it more enjoyable to code.
+Many of the Lists' methods will be recursive. Of the ones 
+that are not, they would require more code if written 
+recursively: in a sense, I'm being selectively lazy.

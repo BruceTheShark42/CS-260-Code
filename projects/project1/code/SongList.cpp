@@ -13,7 +13,7 @@ void SongList::deleteRec(Node *node) {
 	}
 }
 
-bool SongList::addSong(const char *title, const float &length, const int &views, const int &likes) {
+bool SongList::addSong(const char *title, float length, int views, int likes) {
 	Node *node = getNodeWithSongTitle(title);
 	if (node == nullptr) {
 		insertNodeInOrder(new Node(new Song(title, length, views, likes)));
@@ -22,10 +22,10 @@ bool SongList::addSong(const char *title, const float &length, const int &views,
 	return false;
 }
 
-bool SongList::removeUnpopularSongs(const int &likes) {
+void SongList::removeUnpopularSongs(int views) {
 	Node *prev = head;
 	while (prev->next != nullptr) {
-		if (prev->next->song->getLikes() < likes)
+		if (prev->next->song->getViews() < views)
 			delete removeNode(prev);
 		else
 			prev = prev->next;
@@ -49,11 +49,17 @@ int SongList::getSongViews(const char *title) const {
 	return -1;
 }
 
-bool SongList::setSongViews(const char *title, const int &views) {
-	Node *node = getNodeWithSongTitle(title);
-	if (node != nullptr) {
-		node->song->setViews(views);
-		return true;
+bool SongList::setSongViews(const char *title, int views) {
+	// Can't use getNodeWithSongTitle(title) because the previous node is needed
+	Node *prev = head;
+	while (prev->next != nullptr) {
+		if (prev->next->song->hasTitle(title)) {
+			prev->next->song->setViews(views);
+			// Remove the node from the list and put it in the correct place
+			insertNodeInOrder(removeNode(prev));
+			return true;
+		}
+		prev = prev->next;
 	}
 	return false;
 }
@@ -65,16 +71,11 @@ int SongList::getSongLikes(const char *title) const {
 	return -1;
 }
 
-bool SongList::setSongLikes(const char *title, const int &likes) {
-	// Can't use getNodeWithSongTitle(title) because the previous node is needed
-	Node *prev = head;
-	while (prev->next != nullptr) {
-		if (prev->next->song->hasTitle(title)) {
-			// Remove the node from the list and put it in the correct place
-			insertNodeInOrder(removeNode(prev));
-			return true;
-		}
-		prev = prev->next;
+bool SongList::setSongLikes(const char *title, int likes) {
+	Node *node = getNodeWithSongTitle(title);
+	if (node != nullptr) {
+		node->song->setLikes(likes);
+		return true;
 	}
 	return false;
 }
@@ -106,8 +107,6 @@ SongList::Node::~Node() {
 std::ostream& operator<<(std::ostream& ostr, const SongList &list) {
 	if (list.head->next != nullptr)
 		printRec(ostr, list.head->next);
-	else
-		ostr << "No songs available!\n";
 	return ostr;
 }
 
@@ -116,4 +115,9 @@ void printRec(std::ostream& ostr, SongList::Node *node) {
 		ostr << *node->song;
 		printRec(ostr, node->next);
 	}
+}
+
+void SongList::toFileFormat(std::ofstream &file) const {
+	for (Node *node = head->next; node != nullptr; node = node->next)
+		node->song->toFileFormat(file);
 }

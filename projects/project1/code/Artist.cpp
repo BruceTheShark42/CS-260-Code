@@ -1,5 +1,6 @@
 #include "Artist.h"
 #include <cstring>
+#include "constants.h"
 
 Artist::Artist(const char *name, const char *topStory, const char *description) {
 	this->name = new char[std::strlen(name) + 1];
@@ -16,8 +17,12 @@ Artist::~Artist() {
 	delete[] description;
 }
 
-bool Artist::addSong(const char *title, const float &length, const int &views, const int &likes) {
+bool Artist::addSong(const char *title, float length, int views, int likes) {
 	return songs.addSong(title, length, views, likes);
+}
+
+void Artist::removeUnpopularSongs(int views) {
+	songs.removeUnpopularSongs(views);
 }
 
 int Artist::getSongViews(const char *title) const {
@@ -28,18 +33,27 @@ int Artist::getSongLikes(const char *title) const {
 	return songs.getSongLikes(title);
 }
 
-bool Artist::setSongViews(const char *title, const int &views) {
+bool Artist::setSongViews(const char *title, int views) {
 	return songs.setSongViews(title, views);
 }
 
-bool Artist::setSongLikes(const char *title, const int &likes) {
+bool Artist::setSongLikes(const char *title, int likes) {
 	return songs.setSongLikes(title, likes);
+}
+
+bool Artist::hasName(const char *name) const {
+	return std::strcmp(this->name, name) == 0;
 }
 
 std::ostream& operator<<(std::ostream &ostr, const Artist &artist) {
 	return ostr << " - Artist:\n"
-				<< " -- Name: " << name
-				<< "\n -- Top Story: " << topStory
-				<< "\n -- Description: " << description
-				<< "\n -- Songs:\n" << songs;
+				<< " -- Name: " << artist.name
+				<< "\n -- Top Story: " << artist.topStory
+				<< "\n -- Description: " << artist.description
+				<< "\n -- Songs:\n" << artist.songs;
+}
+
+void Artist::toFileFormat(std::ofstream &file) const {
+	file << 'a' << name << DELIMETER << topStory << DELIMETER << description << DELIMETER << '\n';
+	songs.toFileFormat(file);
 }

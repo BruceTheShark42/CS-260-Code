@@ -2,8 +2,9 @@
 
 #include "Song.h"
 #include <cstring>
+#include "constants.h"
 
-Song::Song(const char *title, const float &length, const int &views, const int &likes) : length(length), views(views), likes(likes) {
+Song::Song(const char *title, float length, int views, int likes) : length(length), views(views), likes(likes) {
 	this->title = new char[std::strlen(title) + 1];
 	std::strcpy(this->title, title);
 }
@@ -28,7 +29,7 @@ int Song::getViews() const {
 	return views;
 }
 
-void Song::setViews(const int &views) {
+void Song::setViews(int views) {
 	this->views = views;
 }
 
@@ -36,15 +37,18 @@ int Song::getLikes() const {
 	return likes;
 }
 
-void Song::setLikes(const int &likes) {
+void Song::setLikes(int likes) {
 	this->likes = likes;
 }
 
 std::ostream& operator<<(std::ostream &ostr, const Song &song) {
-	return ostr << " -- Song:"
-				<< "\n --- Title: " << song.title
-				<< "\n --- Length: " << song.length
-				<< "\n --- Views: " << song.views
-				<< "\n --- Likes: " << song.likes
-				<< "\n\n";
+	return ostr << " --- Song:"
+				<< "\n ---- Title: " << song.title
+				<< "\n ---- Length: " << song.length
+				<< "\n ---- Views: " << song.views
+				<< "\n ---- Likes: " << song.likes << '\n';
+}
+
+void Song::toFileFormat(std::ofstream &file) const {
+	file << 's' << title << DELIMETER << length << DELIMETER << views << DELIMETER << likes << DELIMETER << '\n';
 }

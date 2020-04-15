@@ -2,20 +2,22 @@
 
 #ifndef SONG_LIST
 #define SONG_LIST
-#include <ostream>
 #include "Song.h"
+#include <ostream>
+#include <fstream>
 
 class SongList {
 public:
 	SongList();
 	~SongList();
 	
-	bool addSong(const char *title, const float &length, const int &views, const int &likes);
-	bool removeUnpopularSongs(const int &likes);
+	bool addSong(const char *title, float length, int views, int likes);
+	void removeUnpopularSongs(int views);
 	int getSongViews(const char *title) const;
 	int getSongLikes(const char *title) const;
-	bool setSongViews(const char *title, const int &views);
-	bool setSongLikes(const char *title, const int &likes);
+	bool setSongViews(const char *title, int views);
+	bool setSongLikes(const char *title, int likes);
+	void toFileFormat(std::ofstream &file) const;
 private:
 	struct Node {
 		Node(Song *song = nullptr, Node *next = nullptr);
