@@ -10,12 +10,9 @@ public:
 	Song(const char *title, float length, int views, int likes);
 	~Song();
 	
-	const char* getTitle() const;
 	bool hasTitle(const char *title) const;
-	float getLength() const;
 	int getViews() const;
 	void setViews(int views);
-	int getLikes() const;
 	void setLikes(int likes);
 	void toFileFormat(std::ofstream &file) const;
 private:

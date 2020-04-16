@@ -11,8 +11,6 @@ public:
 	
 	bool addSong(const char *title, float length, int views, int likes);
 	void removeUnpopularSongs(int views);
-	int getSongViews(const char *title) const;
-	int getSongLikes(const char *title) const;
 	bool setSongViews(const char *title, int views);
 	bool setSongLikes(const char *title, int likes);
 	bool hasName(const char *name) const;

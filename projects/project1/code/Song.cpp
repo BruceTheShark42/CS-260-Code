@@ -13,16 +13,8 @@ Song::~Song() {
 	delete[] title;
 }
 
-const char* Song::getTitle() const {
-	return title;
-}
-
 bool Song::hasTitle(const char *title) const {
 	return std::strcmp(this->title, title) == 0;
-}
-
-float Song::getLength() const {
-	return length;
 }
 
 int Song::getViews() const {
@@ -31,10 +23,6 @@ int Song::getViews() const {
 
 void Song::setViews(int views) {
 	this->views = views;
-}
-
-int Song::getLikes() const {
-	return likes;
 }
 
 void Song::setLikes(int likes) {

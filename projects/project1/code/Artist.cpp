@@ -25,14 +25,6 @@ void Artist::removeUnpopularSongs(int views) {
 	songs.removeUnpopularSongs(views);
 }
 
-int Artist::getSongViews(const char *title) const {
-	return songs.getSongViews(title);
-}
-
-int Artist::getSongLikes(const char *title) const {
-	return songs.getSongLikes(title);
-}
-
 bool Artist::setSongViews(const char *title, int views) {
 	return songs.setSongViews(title, views);
 }

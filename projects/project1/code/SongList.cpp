@@ -42,13 +42,6 @@ SongList::Node* SongList::getNodeWithSongTitle(const char *title) const {
 	return nullptr;
 }
 
-int SongList::getSongViews(const char *title) const {
-	Node *node = getNodeWithSongTitle(title);
-	if (node != nullptr)
-		return node->song->getViews();
-	return -1;
-}
-
 bool SongList::setSongViews(const char *title, int views) {
 	// Can't use getNodeWithSongTitle(title) because the previous node is needed
 	Node *prev = head;
@@ -64,13 +57,6 @@ bool SongList::setSongViews(const char *title, int views) {
 	return false;
 }
 
-int SongList::getSongLikes(const char *title) const {
-	Node *node = getNodeWithSongTitle(title);
-	if (node != nullptr)
-		return node->song->getLikes();
-	return -1;
-}
-
 bool SongList::setSongLikes(const char *title, int likes) {
 	Node *node = getNodeWithSongTitle(title);
 	if (node != nullptr) {
@@ -82,7 +68,7 @@ bool SongList::setSongLikes(const char *title, int likes) {
 
 void SongList::insertNodeInOrder(Node *node) {
 	Node *prev = head;
-	while (prev->next != nullptr && prev->next->song->getLikes() >= node->song->getLikes())
+	while (prev->next != nullptr && prev->next->song->getViews() >= node->song->getViews())
 		prev = prev->next;
 	node->next = prev->next;
 	prev->next = node;

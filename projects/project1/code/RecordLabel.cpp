@@ -1,7 +1,6 @@
 #include "RecordLabel.h"
 #include <fstream>
 #include "constants.h"
-#include <iostream>
 
 RecordLabel::RecordLabel() : head(new Node()) {
 	readFromFile();
@@ -83,12 +82,10 @@ RecordLabel::Node* RecordLabel::getNodeWithArtistName(const char *name) const {
 bool RecordLabel::displayArtist(std::ostream &ostr, const char *name) const {
 	Node *node = getNodeWithArtistName(name);
 	if (node != nullptr) {
-		ostr << node->artist;
+		ostr << *node->artist;
 		return true;
-	} else {
-		ostr << "That artist does not exist!\n";
-		return false;
 	}
+	return false;
 }
 
 std::ostream& operator<<(std::ostream &ostr, const RecordLabel &list) {
@@ -107,8 +104,8 @@ void printRec(std::ostream &ostr, RecordLabel::Node *node) {
 void RecordLabel::readFromFile() {
 	std::ifstream file(FILE_NAME);
 	if (file.is_open()) {
-		char name[MAX_CHARS], topStory[MAX_CHARS], description[MAX_CHARS];
-		char title[MAX_CHARS], length[MAX_CHARS], views[MAX_CHARS], likes[MAX_CHARS];
+		char *name = new char[MAX_CHARS], *topStory = new char[MAX_CHARS], *description = new char[MAX_CHARS];
+		char *title = new char[MAX_CHARS], *length = new char[MAX_CHARS], *views = new char[MAX_CHARS], *likes = new char[MAX_CHARS];
 		while (!file.eof()) {
 			char type = file.get();
 			if (!file.eof()) {
@@ -116,20 +113,28 @@ void RecordLabel::readFromFile() {
 					file.getline(name, MAX_CHARS, DELIMETER);
 					file.getline(topStory, MAX_CHARS, DELIMETER);
 					file.getline(description, MAX_CHARS, DELIMETER);
-					std::cout << "Name: \"" << name << "\" Top Story: \"" << topStory << "\" Description: \"" << description << "\"\n"; 
 					addArtist(name, topStory, description);
 				} else {
 					file.getline(title, MAX_CHARS, DELIMETER);
 					file.getline(length, MAX_CHARS, DELIMETER);
 					file.getline(views, MAX_CHARS, DELIMETER);
 					file.getline(likes, MAX_CHARS, DELIMETER);
-					std::cout << "Title: \"" << title << "\" Length: \"" << length << "\" Views: \"" << views << "\" Likes: \"" << likes << "\"\n";
 					addArtistSong(name, title, std::stof(length), std::stoi(views), std::stoi(likes));
 				}
 				file.get();
 			}
 		}
 		file.close();
+		// This would not be necessary if they could be statically allocated
+		// Not to mention this way is slower to access (even if only by nanoseconds)
+		// Please just let us use statically allocated arrays
+		delete[] name;
+		delete[] topStory;
+		delete[] description;
+		delete[] title;
+		delete[] length;
+		delete[] views;
+		delete[] likes;
 	}
 }
 
