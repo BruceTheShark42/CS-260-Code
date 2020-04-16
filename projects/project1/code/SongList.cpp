@@ -1,10 +1,22 @@
+/*
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #1
+ */
+
 #include "SongList.h"
 
+
+
 SongList::SongList() : head(new Node()) {}
+
+
 
 SongList::~SongList() {
 	deleteRec(head);
 }
+
+
 
 void SongList::deleteRec(Node *node) {
 	if (node != nullptr) {
@@ -12,6 +24,8 @@ void SongList::deleteRec(Node *node) {
 		delete node;
 	}
 }
+
+
 
 bool SongList::addSong(const char *title, float length, int views, int likes) {
 	Node *node = getNodeWithSongTitle(title);
@@ -21,6 +35,8 @@ bool SongList::addSong(const char *title, float length, int views, int likes) {
 	}
 	return false;
 }
+
+
 
 void SongList::removeUnpopularSongs(int views) {
 	Node *prev = head;
@@ -32,6 +48,8 @@ void SongList::removeUnpopularSongs(int views) {
 	}
 }
 
+
+
 SongList::Node* SongList::getNodeWithSongTitle(const char *title) const {
 	Node *node = head->next;
 	while (node != nullptr) {
@@ -41,6 +59,8 @@ SongList::Node* SongList::getNodeWithSongTitle(const char *title) const {
 	}
 	return nullptr;
 }
+
+
 
 bool SongList::setSongViews(const char *title, int views) {
 	// Can't use getNodeWithSongTitle(title) because the previous node is needed
@@ -57,6 +77,8 @@ bool SongList::setSongViews(const char *title, int views) {
 	return false;
 }
 
+
+
 bool SongList::setSongLikes(const char *title, int likes) {
 	Node *node = getNodeWithSongTitle(title);
 	if (node != nullptr) {
@@ -66,6 +88,8 @@ bool SongList::setSongLikes(const char *title, int likes) {
 	return false;
 }
 
+
+
 void SongList::insertNodeInOrder(Node *node) {
 	Node *prev = head;
 	while (prev->next != nullptr && prev->next->song->getViews() >= node->song->getViews())
@@ -74,21 +98,31 @@ void SongList::insertNodeInOrder(Node *node) {
 	prev->next = node;
 }
 
+
+
 SongList::Node* SongList::removeNode(Node *prev) {
 	Node *removed = prev->next;
 	prev->next = removed->next;
 	return removed;
 }
 
+
+
 SongList::Node::Node(Song *song, Node *next) : song(song), next(next) {}
+
+
 
 SongList::Node::Node(Node *prev, Song *song) : song(song), next(prev->next) {
 	prev->next = this;
 }
 
+
+
 SongList::Node::~Node() {
 	delete song;
 }
+
+
 
 std::ostream& operator<<(std::ostream& ostr, const SongList &list) {
 	if (list.head->next != nullptr)
@@ -96,12 +130,16 @@ std::ostream& operator<<(std::ostream& ostr, const SongList &list) {
 	return ostr;
 }
 
+
+
 void printRec(std::ostream& ostr, SongList::Node *node) {
 	if (node != nullptr) {
 		ostr << *node->song;
 		printRec(ostr, node->next);
 	}
 }
+
+
 
 void SongList::toFileFormat(std::ofstream &file) const {
 	for (Node *node = head->next; node != nullptr; node = node->next)

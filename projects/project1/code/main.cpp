@@ -1,12 +1,36 @@
+/*
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #1
+ * 
+ * Inputs:
+ *  labels.data - my own custom format
+ *  std::cin - user input
+ * 
+ * Outputs:
+ *  labels.data - my own custom format
+ *  std::cout - response to user input
+ */
+
 #include <iostream>
 #include <limits>
 #include <cstring>
 #include "RecordLabel.h"
 #include "constants.h"
 
-// Read a string with a maximum number of characters
-// Resets std::cin for further use if any errors
-// Must manually delete the return value to avoid memory leaks
+
+
+/*
+ * Read a string with a maximum number of characters
+ * Resets std::cin for further use if any errors
+ * Must manually delete the return value to avoid memory leaks
+ *
+ * Inputs:
+ *  message - a message to be shown to the user
+ * 
+ * Outputs:
+ *  a string that contains a maximum of MAX_CHAR characters
+ */
 char* readString(const char *message) {
 	std::cout << message;
 	char *str = new char[MAX_CHARS];
@@ -18,9 +42,28 @@ char* readString(const char *message) {
 	return str;
 }
 
+
+
+/*
+ * Reads a string from std::cin and converts it to a float
+ * 
+ * Inputs:
+ *  message - a message to be shown to the user
+ *  fail - the succeed/fail outcome
+ *  chainErrors - if this function should accumulate errors 
+ *	 from previous calls to this function or functions like 
+ *	 it, such as readInt
+ * 
+ * Outputs:
+ *  a float that represents the contents of the user's input
+ *  zero if any errors occur while trying to convert 
+ */
 float readFloat(const char *message, bool &fail, bool chainErrors = false) {
 	char *input = readString(message);
-	try { // Very weirdly, std::atof returns a double instead of a float
+	try {
+		// Very weirdly, std::atof returns a double instead of a float
+		// I know I don't need to cast from a double to a float, 
+		// but I chose to to be more explicit
 		float val = (float)std::atof(input);
 		delete[] input;
 		if (!chainErrors)
@@ -33,6 +76,22 @@ float readFloat(const char *message, bool &fail, bool chainErrors = false) {
 	}
 }
 
+
+
+/*
+ * Reads a string from std::cin and converts it to an int
+ * 
+ * Inputs:
+ *  message - a message to be shown to the user
+ *  fail - the succeed/fail outcome
+ *  chainErrors - if this function should accumulate errors 
+ *	 from previous calls to this function or functions like 
+ *	 it, such as readFloat
+ * 
+ * Outputs:
+ *  an int that represents the contents of the user's input
+ *  zero if any errors occur while trying to convert 
+ */
 int readInt(const char *message, bool &fail, bool chainErrors = false) {
 	char *input = readString(message);
 	try {
@@ -48,6 +107,18 @@ int readInt(const char *message, bool &fail, bool chainErrors = false) {
 	}
 }
 
+
+
+/*
+ * Prints a list of all supported commands
+ * No succeed/fail potential, so no need for that clutter
+ * 
+ * Inputs:
+ *  none
+ * 
+ * Outputs:
+ *  a list of commands
+ */
 void displayHelp() {
 	std::cout << "Commands:\n"
 			  << " - \"add artist\" - prompts you to add an artist\n"
@@ -61,6 +132,17 @@ void displayHelp() {
 			  << " - \"exit\" - exit CS Record Label Creator\n";
 }
 
+
+
+/*
+ * Where it all begins
+ * 
+ * Inputs:
+ *  none
+ * 
+ * Outputs:
+ *  whether or not the program executed correctly
+ */
 int main() {
 	std::cout << "Welcome to CS Record Label Creator!\n";
 	displayHelp();

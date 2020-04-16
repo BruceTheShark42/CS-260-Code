@@ -1,4 +1,8 @@
-// Made by Bruce Cosgrove
+/*
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #1
+ */
 
 #ifndef SONG_H
 #define SONG_H
@@ -8,12 +12,29 @@
 class Song {
 public:
 	Song(const char *title, float length, int views, int likes);
+	
+	
+	
 	~Song();
 	
+	
+	
 	bool hasTitle(const char *title) const;
+	
+	
+	
 	int getViews() const;
+	
+	
+	
 	void setViews(int views);
+	
+	
+	
 	void setLikes(int likes);
+	
+	
+	
 	void toFileFormat(std::ofstream &file) const;
 private:
 	friend std::ostream& operator<<(std::ostream &ostr, const Song &song);
@@ -23,6 +44,8 @@ private:
 	int views;
 	int likes;
 };
+
+
 
 std::ostream& operator<<(std::ostream &ostr, const Song &song);
 #endif

@@ -1,15 +1,27 @@
+/*
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #1
+ */
+
 #include "RecordLabel.h"
 #include <fstream>
 #include "constants.h"
+
+
 
 RecordLabel::RecordLabel() : head(new Node()) {
 	readFromFile();
 }
 
+
+
 RecordLabel::~RecordLabel() {
 	writeToFile();
 	deleteRec(head);
 }
+
+
 
 void RecordLabel::deleteRec(Node *node) {
 	if (node != nullptr) {
@@ -17,6 +29,8 @@ void RecordLabel::deleteRec(Node *node) {
 		delete node;
 	}
 }
+
+
 
 bool RecordLabel::addArtist(const char *name, const char *topStory, const char *description) {
 	Node *node = getNodeWithArtistName(name);
@@ -27,35 +41,51 @@ bool RecordLabel::addArtist(const char *name, const char *topStory, const char *
 	return false;
 }
 
+
+
 bool RecordLabel::addArtistSong(const char *name, const char *title, float length, int views, int likes) {
 	Node *node = getNodeWithArtistName(name);
 	return node != nullptr && node->artist->addSong(title, length, views, likes);
 }
+
+
 
 bool RecordLabel::setArtistSongViews(const char *name, const char *title, int views) {
 	Node *node = getNodeWithArtistName(name);
 	return node != nullptr && node->artist->setSongViews(title, views);
 }
 
+
+
 bool RecordLabel::setArtistSongLikes(const char *name, const char *title, int likes) {
 	Node *node = getNodeWithArtistName(name);
 	return node != nullptr && node->artist->setSongLikes(title, likes);
 }
+
+
 
 void RecordLabel::removeUnpopularSongs(int views) {
 	for (Node *node = head->next; node != nullptr; node = node->next)
 		node->artist->removeUnpopularSongs(views);
 }
 
+
+
 RecordLabel::Node::Node(Artist *artist, Node *next) : artist(artist), next(next) {}
+
+
 
 RecordLabel::Node::Node(Node *prev, Artist *artist) : artist(artist), next(prev->next) {
 	prev->next = this;
 }
 
+
+
 RecordLabel::Node::~Node() {
 	delete artist;
 }
+
+
 
 void RecordLabel::appendNode(Node *node) {
 	Node *prev = head;
@@ -66,11 +96,15 @@ void RecordLabel::appendNode(Node *node) {
 	node->next = nullptr;
 }
 
+
+
 RecordLabel::Node* RecordLabel::removeNode(Node *prev) {
 	Node *removed = prev->next;
 	prev->next = removed->next;
 	return removed;
 }
+
+
 
 RecordLabel::Node* RecordLabel::getNodeWithArtistName(const char *name) const {
 	Node *node = head->next;
@@ -78,6 +112,8 @@ RecordLabel::Node* RecordLabel::getNodeWithArtistName(const char *name) const {
 		node = node->next;
 	return node;
 }
+
+
 
 bool RecordLabel::displayArtist(std::ostream &ostr, const char *name) const {
 	Node *node = getNodeWithArtistName(name);
@@ -88,11 +124,15 @@ bool RecordLabel::displayArtist(std::ostream &ostr, const char *name) const {
 	return false;
 }
 
+
+
 std::ostream& operator<<(std::ostream &ostr, const RecordLabel &list) {
 	if (list.head->next != nullptr)
 		printRec(ostr, list.head->next);
 	return ostr;
 }
+
+
 
 void printRec(std::ostream &ostr, RecordLabel::Node *node) {
 	if (node != nullptr) {
@@ -100,6 +140,8 @@ void printRec(std::ostream &ostr, RecordLabel::Node *node) {
 		printRec(ostr, node->next);
 	}
 }
+
+
 
 void RecordLabel::readFromFile() {
 	std::ifstream file(FILE_NAME);
@@ -128,6 +170,7 @@ void RecordLabel::readFromFile() {
 		// This would not be necessary if they could be statically allocated
 		// Not to mention this way is slower to access (even if only by nanoseconds)
 		// Please just let us use statically allocated arrays
+		// It would make everything simpler to both write and grade
 		delete[] name;
 		delete[] topStory;
 		delete[] description;
@@ -137,6 +180,8 @@ void RecordLabel::readFromFile() {
 		delete[] likes;
 	}
 }
+
+
 
 void RecordLabel::writeToFile() {
 	std::ofstream file(FILE_NAME);
