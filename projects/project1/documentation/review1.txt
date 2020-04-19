@@ -1,0 +1,48 @@
+Bruce Cosgrove
+CS 260
+
+1) How well did the data structure selected perform for the assigned application?
+The RecordLabel ADT I have made passes all of the tests I have thrown at it. It 
+does, for simplicity, does not check if the file is in the correct format. It 
+assumes that it is because it is my own custom format that should not be altered 
+if the user wants the program to work. The "labels.data" file, however, can be 
+deleted and the changes will be reflected in the program. As for the Artist and 
+Song data sub-data structures, they both also work as intended and in conjunction 
+with each other and RecordLabel to produce a working program.
+
+
+2) Would a different data structure work better? If so, which one and why...
+I believe a linked list for each data level (SongList and RecordLabel) is 
+sufficient for these purposes. However, if much more data were to be used, by 
+nature of the linked list, access time would suffer. But, nothing as such can be 
+noticed by the provided test cases and data file. In fact, many many times more 
+data would be required to even see even the slightest change in acess time.
+
+
+3) What was efficient about your design and use of the data structure?
+I think I used the data structures quite well. There are absolutely no memory 
+leaks, which you can easily double check by entering the command "make memrun".
+The program is easy to use, at least I think so that is. The use of recursive 
+functions is somewhat random.
+
+4) What was not efficient?
+While making the ArtistList class, I realized that it and RecordLabel were 
+identical, so I removed ArtistList entirely. I also removed some unused functions 
+that I had included in the initial write.
+
+Another inneficiend thing is the mandatory use of dynamic arrays instead of 
+static arrays. Quite a bit of memory could be saved if that were allowed, 
+specifically for the file reading.
+
+On top of that, the use of whitespace is just too much. "At least three lines of 
+white space must separate functions" as specified in the Style Sheet under 
+Requirements (#2). One blank line is perfectly fine at conveying that "these two 
+sections of code are separate." Not to mention the fact that each function must 
+have a fair amount of comments which, while I'm perfectly okay with, that alone 
+distinguishes that there is a new function. On top of that, it also decreases 
+readability of the code. Plus, it's tedious to type and outright annoying.
+
+
+5) What would you do differently if you had more time to solve the problem?
+I don't think I would have done anything differently as I paced myself fairly 
+well for this assignment. No extra time would be required.
