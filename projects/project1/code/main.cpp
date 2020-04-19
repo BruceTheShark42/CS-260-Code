@@ -1,5 +1,10 @@
 /*
+ * main.cpp
+ *
+ * CS Record Label Creator
+ * 
  * Bruce Cosgrove
+ * 20 April 2020
  * CS 260
  * Assignment #1
  * 
@@ -33,6 +38,7 @@
  */
 char* readString(const char *message) {
 	std::cout << message;
+	// Stores the user input
 	char *str = new char[MAX_CHARS];
 	std::cin.getline(str, MAX_CHARS);
 	if (std::cin.fail()) {
@@ -59,11 +65,14 @@ char* readString(const char *message) {
  *  zero if any errors occur while trying to convert 
  */
 float readFloat(const char *message, bool &fail, bool chainErrors = false) {
+	// Stores the user input
 	char *input = readString(message);
 	try {
 		// Very weirdly, std::atof returns a double instead of a float
 		// I know I don't need to cast from a double to a float, 
 		// but I chose to to be more explicit
+		
+		// Cannot direcly return this because input must be deleted afterwards
 		float val = (float)std::atof(input);
 		delete[] input;
 		if (!chainErrors)
@@ -93,8 +102,10 @@ float readFloat(const char *message, bool &fail, bool chainErrors = false) {
  *  zero if any errors occur while trying to convert 
  */
 int readInt(const char *message, bool &fail, bool chainErrors = false) {
+	// Stores the user input
 	char *input = readString(message);
 	try {
+		// Cannot direcly return this because input must be deleted afterwards
 		int val = std::atoi(input);
 		delete[] input;
 		if (!chainErrors)
@@ -147,10 +158,13 @@ int main() {
 	std::cout << "Welcome to CS Record Label Creator!\n";
 	displayHelp();
 	
+	// The actual RecordLabel ADT
 	RecordLabel rl;
+	// The user input for the menu
 	char *input;
 	while (std::strcmp(input = readString("\n> "), "exit")) {
 		if (!std::strcmp(input, "add artist")) {
+			// These three are user input
 			char *name = readString("Enter the artist's name: ");
 			char *topStory = readString("Enter the artist's top story: ");
 			char *description = readString("Enter the artist's description: ");
@@ -159,6 +173,7 @@ int main() {
 			delete[] topStory;
 			delete[] description;
 		} else if (!std::strcmp(input, "add song")) {
+			// These six are user input
 			char *name = readString("Enter the artist's name: ");
 			char *title = readString("Enter the title of the song: ");
 			bool error = false;
@@ -169,6 +184,7 @@ int main() {
 			delete[] name;
 			delete[] title;
 		} else if (!std::strcmp(input, "edit views")) {
+			// These four are user input
 			char *name = readString("Enter the artist's name: ");
 			char *title = readString("Enter the title of the song: ");
 			bool error;
@@ -177,6 +193,7 @@ int main() {
 			delete[] name;
 			delete[] title;
 		} else if (!std::strcmp(input, "edit likes")) {
+			// These four are user input
 			char *name = readString("Enter the artist's name: ");
 			char *title = readString("Enter the title of the song: ");
 			bool error;
@@ -185,6 +202,7 @@ int main() {
 			delete[] name;
 			delete[] title;
 		} else if (!std::strcmp(input, "display")) {
+			// This is user input
 			char *name = readString("Enter the artist's name: ");
 			if (!rl.displayArtist(std::cout, name))
 				std::cout << "That artist does not exist!\n";
@@ -192,6 +210,7 @@ int main() {
 		} else if (!std::strcmp(input, "display all")) {
 			std::cout << rl;
 		} else if (!std::strcmp(input, "remove")) {
+			// These two are user input
 			bool error;
 			int views = readInt("Enter the minimum number of views for a song to be considered popular: ", error);
 			std::cout << (error ? "Failed to" : "Successfully") << " set the minimum number of views for the Record Label!\n";

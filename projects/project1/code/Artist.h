@@ -1,7 +1,11 @@
 /*
+ * Artist.h
+ *
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * Used to store data about an Artist
  */
 
 #ifndef ARTIST_H
@@ -121,7 +125,10 @@ public:
 	 */
 	void toFileFormat(std::ofstream &file) const;
 private:
+	// name is used for identifying this Artist
+	// topStory and description are only used for printing/writing to files and serve no purpose whatsoever
 	char *name, *topStory, *description;
+	// Stores the list of songs
 	SongList songs;
 	
 	friend std::ostream& operator<<(std::ostream &ostr, const Artist &artist);

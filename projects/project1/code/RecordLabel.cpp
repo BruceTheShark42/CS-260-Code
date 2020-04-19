@@ -1,7 +1,11 @@
 /*
+ * RecordLabel.cpp
+ * 
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * RecordLabel implementation
  */
 
 #include "RecordLabel.h"
@@ -44,6 +48,7 @@ bool RecordLabel::addArtist(const char *name, const char *topStory, const char *
 
 
 bool RecordLabel::addArtistSong(const char *name, const char *title, float length, int views, int likes) {
+	// Stores an Artist with the given name
 	Node *node = getNodeWithArtistName(name);
 	return node != nullptr && node->artist->addSong(title, length, views, likes);
 }
@@ -51,6 +56,7 @@ bool RecordLabel::addArtistSong(const char *name, const char *title, float lengt
 
 
 bool RecordLabel::setArtistSongViews(const char *name, const char *title, int views) {
+	// Stores an Artist with the given name
 	Node *node = getNodeWithArtistName(name);
 	return node != nullptr && node->artist->setSongViews(title, views);
 }
@@ -58,6 +64,7 @@ bool RecordLabel::setArtistSongViews(const char *name, const char *title, int vi
 
 
 bool RecordLabel::setArtistSongLikes(const char *name, const char *title, int likes) {
+	// Stores an Artist with the given name
 	Node *node = getNodeWithArtistName(name);
 	return node != nullptr && node->artist->setSongLikes(title, likes);
 }
@@ -88,6 +95,7 @@ RecordLabel::Node::~Node() {
 
 
 void RecordLabel::appendNode(Node *node) {
+	// Stores the previously checked node
 	Node *prev = head;
 	while (prev->next != nullptr)
 		prev = prev->next;
@@ -99,6 +107,7 @@ void RecordLabel::appendNode(Node *node) {
 
 
 RecordLabel::Node* RecordLabel::removeNode(Node *prev) {
+	// Stores the removed node
 	Node *removed = prev->next;
 	prev->next = removed->next;
 	return removed;
@@ -107,6 +116,7 @@ RecordLabel::Node* RecordLabel::removeNode(Node *prev) {
 
 
 RecordLabel::Node* RecordLabel::getNodeWithArtistName(const char *name) const {
+	// Stored the current node being checked
 	Node *node = head->next;
 	while (node != nullptr && !node->artist->hasName(name))
 		node = node->next;
@@ -116,6 +126,7 @@ RecordLabel::Node* RecordLabel::getNodeWithArtistName(const char *name) const {
 
 
 bool RecordLabel::displayArtist(std::ostream &ostr, const char *name) const {
+	// Stores an Artist with the given name
 	Node *node = getNodeWithArtistName(name);
 	if (node != nullptr) {
 		ostr << *node->artist;
@@ -144,11 +155,14 @@ void printRec(std::ostream &ostr, RecordLabel::Node *node) {
 
 
 void RecordLabel::readFromFile() {
+	// The file to read from
 	std::ifstream file(FILE_NAME);
 	if (file.is_open()) {
+		// These 7 cstrings are used to read the file
 		char *name = new char[MAX_CHARS], *topStory = new char[MAX_CHARS], *description = new char[MAX_CHARS];
 		char *title = new char[MAX_CHARS], *length = new char[MAX_CHARS], *views = new char[MAX_CHARS], *likes = new char[MAX_CHARS];
 		while (!file.eof()) {
+			// Stores the first character of the line
 			char type = file.get();
 			if (!file.eof()) {
 				if (type == 'a') {
@@ -184,6 +198,7 @@ void RecordLabel::readFromFile() {
 
 
 void RecordLabel::writeToFile() {
+	// The file to write to
 	std::ofstream file(FILE_NAME);
 	if (file.is_open()) {
 		for (Node *node = head->next; node != nullptr; node = node->next) 

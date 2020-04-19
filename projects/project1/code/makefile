@@ -1,6 +1,10 @@
+# makefile
+# 
 # Bruce Cosgrove
 # CS 260
 # Assignment #1
+# 
+# Builds the program
 
 # I know there are ways to automate this process
 # Could you let me know some ways to do that?

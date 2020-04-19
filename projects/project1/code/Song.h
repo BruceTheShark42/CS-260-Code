@@ -1,7 +1,11 @@
 /*
+ * Song.h
+ * 
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * Used to store data about a song
  */
 
 #ifndef SONG_H
@@ -102,9 +106,13 @@ public:
 private:
 	friend std::ostream& operator<<(std::ostream &ostr, const Song &song);
 	
+	// Stores the title of the song
 	char *title;
+	// Stores the length of the song
 	float length;
+	// Stores the number of views of the song
 	int views;
+	// Stores the number of likes of the song
 	int likes;
 };
 

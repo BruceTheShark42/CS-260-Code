@@ -1,7 +1,11 @@
 /*
+ * SongList.cpp
+ * 
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * SongList implementation
  */
 
 #include "SongList.h"
@@ -28,6 +32,7 @@ void SongList::deleteRec(Node *node) {
 
 
 bool SongList::addSong(const char *title, float length, int views, int likes) {
+	// Stores a Song with the given title
 	Node *node = getNodeWithSongTitle(title);
 	if (node == nullptr) {
 		insertNodeInOrder(new Node(new Song(title, length, views, likes)));
@@ -39,6 +44,7 @@ bool SongList::addSong(const char *title, float length, int views, int likes) {
 
 
 void SongList::removeUnpopularSongs(int views) {
+	// Stores the previously checked Node
 	Node *prev = head;
 	while (prev->next != nullptr) {
 		if (prev->next->song->getViews() < views)
@@ -51,6 +57,7 @@ void SongList::removeUnpopularSongs(int views) {
 
 
 SongList::Node* SongList::getNodeWithSongTitle(const char *title) const {
+	// Stores the currently checked Node
 	Node *node = head->next;
 	while (node != nullptr) {
 		if (node->song->hasTitle(title))
@@ -63,12 +70,13 @@ SongList::Node* SongList::getNodeWithSongTitle(const char *title) const {
 
 
 bool SongList::setSongViews(const char *title, int views) {
-	// Can't use getNodeWithSongTitle(title) because the previous node is needed
+	// Can't use getNodeWithSongTitle(title) because the previous Node is needed
+	// Stores the pevious Node
 	Node *prev = head;
 	while (prev->next != nullptr) {
 		if (prev->next->song->hasTitle(title)) {
 			prev->next->song->setViews(views);
-			// Remove the node from the list and put it in the correct place
+			// Remove the Node from the list and put it in the correct place
 			insertNodeInOrder(removeNode(prev));
 			return true;
 		}
@@ -80,6 +88,7 @@ bool SongList::setSongViews(const char *title, int views) {
 
 
 bool SongList::setSongLikes(const char *title, int likes) {
+	// Stores a Song with the given title
 	Node *node = getNodeWithSongTitle(title);
 	if (node != nullptr) {
 		node->song->setLikes(likes);
@@ -91,6 +100,7 @@ bool SongList::setSongLikes(const char *title, int likes) {
 
 
 void SongList::insertNodeInOrder(Node *node) {
+	// Stores the pevious Node
 	Node *prev = head;
 	while (prev->next != nullptr && prev->next->song->getViews() >= node->song->getViews())
 		prev = prev->next;
@@ -101,6 +111,7 @@ void SongList::insertNodeInOrder(Node *node) {
 
 
 SongList::Node* SongList::removeNode(Node *prev) {
+	// Stores the removed Node
 	Node *removed = prev->next;
 	prev->next = removed->next;
 	return removed;

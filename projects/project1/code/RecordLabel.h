@@ -1,7 +1,11 @@
 /*
+ * RecordLabel.h
+ * 
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * The main ADT that stores a list of Artists
  */
 
 #ifndef RECORD_LABEL_H
@@ -164,9 +168,11 @@ private:
 		
 		
 		
+		// Stores the Artist data
 		Artist *artist;
+		// Stores the next Node
 		Node *next;
-	} *head;
+	} *head; // Stores a dummy node to the front of the list
 	
 	
 	
@@ -225,6 +231,7 @@ private:
 	friend std::ostream& operator<<(std::ostream &ostr, const RecordLabel &list);
 	friend void printRec(std::ostream &ostr, RecordLabel::Node *node);
 	
+	// The data file
 	static constexpr const char *FILE_NAME = "labels.data";
 	
 	

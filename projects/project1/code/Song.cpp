@@ -1,7 +1,11 @@
 /*
+ * Song.cpp
+ * 
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * Song implementation
  */
 
 #include "Song.h"

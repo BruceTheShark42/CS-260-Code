@@ -1,7 +1,11 @@
 /*
+ * SongList.h
+ * 
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * Used to store a list of Songs
  */
 
 #ifndef SONG_LIST
@@ -148,9 +152,11 @@ private:
 		
 		
 		
+		// Stores the Song data
 		Song *song;
+		// Stores the next Node
 		Node *next;
-	} *head;
+	} *head; // Stores a dummy node to the front of the list
 	
 	
 	

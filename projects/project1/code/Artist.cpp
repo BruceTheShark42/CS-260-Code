@@ -1,7 +1,11 @@
 /*
+ * Artist.cpp
+ *
  * Bruce Cosgrove
  * CS 260
  * Assignment #1
+ * 
+ * Artist implementstion
  */
 
 #include "Artist.h"
