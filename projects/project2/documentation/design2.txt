@@ -1,0 +1,88 @@
+Bruce Cosgrove
+
+The methods that the CustomerQueue must have are as follows:
+	1) The no-argument constructor to allocate all required memory 
+		and initialize values.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: no parameters are
+			passed into this constructor. Therefore, there is 
+			no concept sharing whatsoever.
+		Recursive: no.
+	2) The destructor to deallocate all required memory.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: destructors do not 
+			take in any parameters in C++ as far as I am 
+			aware of. This is the same reason why the 
+			constructor "shields" the caller, simply 
+			because there is nothing to sheild.
+		Recursive: no.
+	3) A method to add a group to the queue
+		Success/Failure Report: through the return value
+		Abstract Concept Sheilding: a single group will be passed 
+			in (mostly so there aren't a million different 
+			parameters)
+		Recursive: likely.
+	4) A method to remove a group from the queue
+		Success/Failure Report: through the return value
+		Abstract Concept Sheilding: a group object will be passed 
+			in and will be changed to the front of the queue if 
+			it exists. The only things that the caller has access 
+			to are the success of this function and the potential 
+			group that is returned through the parameter.
+		Recursive: likely
+	5) A method to retrieve the size of the queue
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: only returns the number of 
+			groups in this queue, nothing else.
+		Recursive: no.
+	
+
+The methods that the CustomerStack must have are as follows:
+	1) The constructor to allocate the array with a given size.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: the size of the array is given 
+		but not modified. This constructor will handle the details.
+		Recursive: no.
+	2) The destructor to deallocate the array.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: destructors do not 
+			take in any parameters in C++ as far as I am 
+			aware of. This is the same reason why the 
+			constructor "shields" the caller, simply 
+			because there is nothing to sheild.
+		Recursive: no.
+	3) A method to push a customer to the stack
+		Success/Failure Report: through the return value
+		Abstract Concept Sheilding: a single customer will be 
+			passed in to stay consistent with the GroupQueue.
+		Recursive: no.
+	4) A method to pop a customer from the stack
+		Success/Failure Report: through the return value
+		Abstract Concept Sheilding: a customer will be passed 
+			in to write to if the stack has at least one 
+			customer. Other operations are only visible by 
+			the stack.
+		Recursive: no.
+	5) A method to peek at the most recent customer
+		Success/Failure Report: through the return value
+		Abstract Concept Sheilding: a customer will be passed 
+			in to write to if the stack has at least one 
+			customer. Other operations are only visible by 
+			the stack.
+	6) A method to get the size of the stack
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: only returns a value, nothing 
+			else occurs.
+
+Notes:
+	1) 
+
+Data structures that will be used in the program:
+	1) GroupQueue
+		a) Node
+	2) CustomerStack
+		a) Node
+	3) Customer
+		- this is just a struct to wrap a name and email into one 
+		object to simplify some operations
+
