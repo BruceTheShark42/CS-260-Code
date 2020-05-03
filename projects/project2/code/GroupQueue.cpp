@@ -9,7 +9,7 @@ GroupQueue::~GroupQueue() {
 
 void GroupQueue::deleteRec(Node *node, unsigned int nodes) {
 	if (node != nullptr && nodes < groupCount) {
-		deleteRec(node, nodes + 1);
+		deleteRec(node->next, nodes + 1);
 		delete node;
 	}
 }
@@ -23,6 +23,7 @@ void GroupQueue::enqueue(const Group &group) {
 	} else {
 		tail = new Node(tail, new Group(group));
 	}
+	++groupCount;
 }
 
 bool GroupQueue::dequeue(Group &group) {
@@ -38,6 +39,7 @@ bool GroupQueue::dequeue(Group &group) {
 		delete head;
 		head = tail->next;
 	}
+	--groupCount;
 	return true;
 }
 
@@ -67,10 +69,20 @@ std::ostream& operator<<(std::ostream &ostr, GroupQueue &queue) {
 }
 
 std::ostream& GroupQueue::printRec(std::ostream &ostr, GroupQueue::Node *node, unsigned int nodes) {
-	if (node != nullptr) {
-		node->group->print(ostr, nodes + 1);
+	if (node != nullptr && nodes < groupCount) {
+		Group &group = *node->group;
+		ostr << "Group \"" << (group.getName() != nullptr ? group.getName() : "")
+			 << "\"\n - Place in Line: " << (nodes + 1)
+			 << "\n - Total People: " << group.getTotalPeople()
+			 << "\n - Seating Requirements: " << (group.hasSeatingRequirements() ? group.getSeatingRequirements() : "none")
+			 << "\n - Contact Info: ";
+		if (group.hasContactInfo()) {
+			ostr << group.getContactInfo().getName() << ", " << group.getContactInfo().getEmail();
+		} else {
+			ostr << "none given";
+		}
+		ostr << '\n';
 		return printRec(ostr, node->next, nodes + 1);
-	} else {
-		return ostr;
 	}
+	return ostr;
 }

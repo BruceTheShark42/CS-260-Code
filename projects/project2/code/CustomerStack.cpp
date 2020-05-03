@@ -33,3 +33,9 @@ bool CustomerStack::peek(Customer &customer) const {
 	}
 	return false;
 }
+
+std::ostream& operator<<(std::ostream &ostr, const CustomerStack &stack) {
+	for (unsigned int i = 0; i < stack.customerCount; ++i)
+		ostr << stack.customers[i]->getName() << ", " << stack.customers[i]->getEmail() << '\n';
+	return ostr;
+}

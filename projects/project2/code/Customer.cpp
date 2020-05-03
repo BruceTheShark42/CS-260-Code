@@ -1,6 +1,5 @@
 #include "Customer.h"
 #include "util.h"
-#include <sstream>
 
 Customer::Customer(const char *name, const char *email) {
 	set(name, email);
@@ -26,10 +25,4 @@ void Customer::set(const char *name, const char *email) {
 Customer::~Customer() {
 	delete[] name;
 	delete[] email;
-}
-
-const char* Customer::get() const {
-	std::stringstream ss;
-	ss << name << " " << email;
-	return ss.str().c_str();
 }

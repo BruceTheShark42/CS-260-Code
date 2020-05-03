@@ -21,8 +21,6 @@ public:
 	inline const char* getSeatingRequirements() const { return seatingRequirements; }
 	inline bool hasContactInfo() const { return contactInfo != nullptr; }
 	inline Customer& getContactInfo() const { return *contactInfo; }
-public:
-	std::ostream& print(std::ostream &ostr, unsigned int lineNumber);
 private:
 	char *name;
 	unsigned int totalPeople;
