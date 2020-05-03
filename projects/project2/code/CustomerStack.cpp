@@ -1,3 +1,13 @@
+/*
+ * CustomerStack.cpp
+ * 
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #2
+ * 
+ * The implementation of CustomerStack
+ */
+
 #include "CustomerStack.h"
 
 CustomerStack::CustomerStack(unsigned int size) :

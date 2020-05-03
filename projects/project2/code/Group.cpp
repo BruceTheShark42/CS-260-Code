@@ -1,3 +1,13 @@
+/*
+ * Group.cpp
+ * 
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #2
+ * 
+ * The implementation of Group
+ */
+
 #include "Group.h"
 #include "util.h"
 
@@ -5,28 +15,18 @@
 Group::Group() :
 		name(nullptr) {}
 
-Group::Group(const char *name, unsigned int totalPeople) :
-		totalPeople(totalPeople), seatingRequirements(nullptr), contactInfo(nullptr){
-	copyString(this->name, name);
-}
-
-Group::Group(const char *name, unsigned int totalPeople, const char *seatingRequirements) :
-		Group(name, totalPeople) {
-	copyString(this->seatingRequirements, seatingRequirements);
-}
-
-Group::Group(const char *name, unsigned int totalPeople, const char *contactName, const char *email) :
-		Group(name, totalPeople) {
-	contactInfo = new Customer(contactName, email);
-}
-
 Group::Group(const char *name, unsigned int totalPeople, const char *seatingRequirements, const char *contactName, const char *email) :
-		Group(name, totalPeople, contactName, email) {
-	copyString(this->seatingRequirements, seatingRequirements);
+		totalPeople(totalPeople), seatingRequirements(nullptr), contactInfo(nullptr) {
+	copyString(this->name, name);
+	if (contactName != nullptr && email != nullptr)
+		contactInfo = new Customer(contactName, email);
+	if (seatingRequirements != nullptr)
+		copyString(this->seatingRequirements, seatingRequirements);
 }
 
 Group::Group(const Group &group) :
-		Group(group.name, group.totalPeople) {
+		totalPeople(group.totalPeople), seatingRequirements(nullptr) {
+	copyString(this->name, group.name);
 	contactInfo = group.hasContactInfo() ? new Customer(*group.contactInfo) : nullptr;
 	if (group.hasSeatingRequirements())
 		copyString(seatingRequirements, group.seatingRequirements);
@@ -53,6 +53,8 @@ Group& Group::operator=(const Group &group) {
 		copyString(seatingRequirements, group.seatingRequirements);
 	if (group.hasContactInfo())
 		contactInfo = new Customer(*group.contactInfo);
+	
+	return *this;
 }
 
 Group::~Group() {

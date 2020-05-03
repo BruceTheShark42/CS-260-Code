@@ -1,3 +1,13 @@
+/*
+ * util.cpp
+ * 
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #2
+ * 
+ * The implementation of util functions
+ */
+
 #include "util.h"
 #include <cstring>
 

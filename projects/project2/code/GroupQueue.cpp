@@ -1,3 +1,13 @@
+/*
+ * GroupQueue.cpp
+ * 
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #2
+ * 
+ * The implementation of GroupQueue
+ */
+
 #include "GroupQueue.h"
 
 GroupQueue::GroupQueue() :
@@ -70,6 +80,7 @@ std::ostream& operator<<(std::ostream &ostr, GroupQueue &queue) {
 
 std::ostream& GroupQueue::printRec(std::ostream &ostr, GroupQueue::Node *node, unsigned int nodes) {
 	if (node != nullptr && nodes < groupCount) {
+		// Stores the group so I don't keep having to typing *node->group
 		Group &group = *node->group;
 		ostr << "Group \"" << (group.getName() != nullptr ? group.getName() : "")
 			 << "\"\n - Place in Line: " << (nodes + 1)
