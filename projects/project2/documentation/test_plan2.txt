@@ -1,0 +1,19 @@
+Bruce Cosgrove
+
+ 1) Remember to print the Queue occasionally.
+ 2) Add a Group to the Queue with no contact info.
+ 3) Seat the group.
+ 4) Exit and check the customers.txt file for that Group.
+    If it doesn't exist, then it worked. If it does, 
+	then it's left over from a previous run.
+ 5) Add a few Groups all with and/or without seating 
+	requirements or contact info.
+ 6) If customers.txt exists at this point, remove it.
+ 7) Seat exactly one Group with contact info.
+ 8) Contact them through a "promotional event" and check 
+	the output file for their name.
+ 9) Add and seat a bunch of Groups without any 
+	promotional events and exit.
+10) Check customers.txt for their contact info in order.
+	That is, the order the stack would store them where 
+	the beginning of the file is the top of the stack.

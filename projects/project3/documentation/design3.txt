@@ -1,0 +1,59 @@
+Bruce Cosgrove
+
+The methods that the WebTable must have are as follows:
+	 1) The no-argument constructor to allocate all required memory 
+		and initialize values.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: no parameters are
+			passed into this constructor. Therefore, there is 
+			no concept sharing whatsoever.
+		Recursive: no.
+	 2) The destructor to deallocate all required memory.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: destructors do not 
+			take in any parameters in C++ as far as I am 
+			aware of. This is the same reason why the 
+			constructor "shields" the caller, simply 
+			because there is nothing to sheild.
+		Recursive: no.
+	 5) The hash function
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: this method is private
+		Recursive: no.
+	 6) A method to add a key-value pair
+		Success/Failure Report: if the key-value pair could be 
+			added.
+		Abstract Concept Sheilding: the key-value pair are passed 
+			in, and nothing else.
+			Recursive: no.
+	 7) A method to get an array of Websites with a key
+		Success/Failure Report: if the Website could be read.
+		Abstract Concept Sheilding: only the key, array of 
+			Websites, and the number of Websites are parameters,
+			nothing else like a Node.
+		Recursive: no.
+	 8) A method to remove all Websites with a 1 star rating
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: the only parameter is the key,
+			which is just a cstring.
+		Recursive: no.
+	 9) A method to display all Websites with a key
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: the only parameter is the key,
+			which is just a cstring.
+		Recursive: yes because I need one or more methods to be 
+			recursive.
+	10) A method to display all Websites
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: no parameters means no 
+			concepts to sheild.
+		Recursive: no.
+
+Notes:
+	 1) None right now.
+
+Data structures that will be used in the program:
+	 1) WebTable
+		 a) Node
+	 2) Website
+

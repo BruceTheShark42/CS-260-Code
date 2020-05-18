@@ -1,0 +1,52 @@
+Bruce Cosgrove
+CS 260
+
+1) How well did the data structure selected perform for the assigned application?
+Both of the ADTs, the GroupQueue and the CustomerStack
+worked exactly as intended without error. They worked 
+quickly to get the expected results. All of the ways 
+I could think of for them to not work, I tested and 
+made sure that, if they didn't, that the errors were 
+corrected.
+
+2) Would a different data structure work better? If so, which one and why...
+Instead of using both a Queue and a Stack, I would've 
+used a Deque (pronounced Deck), a double-ended queue.
+The GroupQueue's enqueue and dequeue would be directly 
+mapped to the Deque's pushFront and popFront methods
+respectively. Then the CustomerStack's push and pop 
+would be mapped to the Deque's pushBack and popBack 
+methods respectively. That way, only one data 
+structure would've needed to be used instead of two.
+On top of that, there would be decreased data copying 
+as the CustomerStack copied the data in GroupQueue 
+when that would not be the case had a Deque been used.
+
+3) What was efficient about your design and use of the data structure?
+While the Deque would've simplified many things, it 
+is not 100% necessary for the completion of this 
+simple concept. Perhaps, if the resturant were more 
+popular, with hundreds of Customers, things would 
+slow down. But since that is not the case with this 
+assignment, it's perfectly fine.
+
+4) What was not efficient?
+However, all things considered, the Deque would've 
+been ideal. Firstly, there would be less code. This 
+would make it easier to A) program, B) debug, C) use, 
+and D) grade. Secondly, it would decrease compile 
+time, and while that's not much of an issue for this 
+project, it very much is for projects I complete in 
+my spare time that have upwards of 50+ files.
+
+Side note, yes, I do in fact work on big projects 
+such as 2D and 3D game engines. More often then not, 
+I use C++, but occasionally I use Java because I 
+find it fun to swap between the two.
+
+5) What would you do differently if you had more time to solve the problem?
+Had I paced myself better than I had, I would've 
+improved the UI and made it easier to work with.
+Although, since you are primarily grading the ADTs,
+I doubt that will be too much of an issue, especially 
+this time around.

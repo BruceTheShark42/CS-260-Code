@@ -75,7 +75,7 @@ The methods that the CustomerStack must have are as follows:
 			else occurs.
 
 Notes:
-	1) 
+	1) Will likely wrap up the groups into their own struct/class.
 
 Data structures that will be used in the program:
 	1) GroupQueue
