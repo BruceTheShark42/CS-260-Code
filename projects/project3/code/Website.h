@@ -13,6 +13,7 @@ public:
 public:
 	bool checkURL(const char *url) const;
 	inline const char* getURL() const { return url; }
+	void setURL(const char *url);
 	inline const char* getSummary() const { return summary; }
 	inline const char* getReview() const { return review; }
 	void setReview(const char *review);

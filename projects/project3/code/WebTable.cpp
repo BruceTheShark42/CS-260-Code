@@ -68,6 +68,7 @@ void WebTable::cull() {
 }
 
 void WebTable::print(ostream &ostr, const char *key) const {
+	ostr << "Websites:\n";
 	printRec(ostr, entries[hash(key)]->next);
 }
 

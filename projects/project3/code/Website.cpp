@@ -48,6 +48,12 @@ bool Website::checkURL(const char *url) const {
 	return strcmp(this->url, url) == 0;
 }
 
+void Website::setURL(const char *url) {
+	if (this->url != nullptr) delete[] this->url;
+	this->url = new char[strlen(url) + 1];
+	strcpy(this->url, url);
+}
+
 void Website::setReview(const char *review) {
 	if (this->review != nullptr) delete[] this->review;
 	this->review = new char[strlen(review) + 1];
