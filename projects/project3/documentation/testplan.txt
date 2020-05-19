@@ -1,0 +1,24 @@
+The standard menu I have is being used, which I should 
+most definetly wrap into its own class.
+
+The options are:
+ add  - "Insert a new website by topic"
+ get  - "Retrieve"
+ set  - "Edit"
+ cull - "Remove"
+ show - "Display"
+ all  - "Display all"
+ help
+ exit
+
+At the beginning of the program, the file contents
+are loaded into the WebTable. You are then prompted to 
+pick an option.
+
+Choose any and, in fact, all of them. Try to break the 
+program if you can; its resilienceis astounding.
+
+Do each more than once in different orders each time to 
+thoroughly check each outcome.
+
+Surprise, surprise, it met all the criteria.

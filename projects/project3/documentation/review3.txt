@@ -1,0 +1,51 @@
+Bruce Cosgrove
+CS 260
+
+1) How well did the data structure selected perform for the assigned application?
+The ADT worked as well as it could have for this assignment. Although, if anyone 
+were to propose this idea as an actual thing they wanted to do, I would throw it 
+out the window if I didn't care about littering. But, scince I do, I would shred 
+it to pieces.
+
+2) Would a different data structure work better? If so, which one and why...
+For every assignment (an) ADT(s) are picked. The assignments are literally 
+to have you implement and use the ADT(s). They are tailored specifically 
+around them, and often rely too much on the ADT(s) to the extent that it 
+may not even work with another one, let alone as efficiently as the ADT(s) 
+picked, with the notable exception of assignment #2, in which my opinion 
+differed from that of the chosen ADTs. However, that is not the case for 
+this assignment. So, I have to say that the HashTable is practically, but 
+not really, required for this assignment. I mean, I could just have two 
+arrays, one of the keys, and the other with the chains, though worst case 
+access time would be O(n) instead of O(1).
+
+3) What was efficient about your design and use of the data structure?
+By nature, it's fast. O(1) read/write time. I can't really think of 
+anything else to put here. It was too generic to excell at anything.
+Oh! I just remembered I have to talk about the hash function.
+
+I did some testing, and, for the most part, 98 times in 100, as far as 
+my testing is concerned, the hash index maps to a separate value. It 
+does, however, take O(n) time to generate, where n is the length of 
+the key. But has O(1) with respect to the entire HashTable.
+
+4) What was not efficient?
+The use of the "set" function. In my opinion, that should not even exist 
+for making an actual HashTable. The same exact thing goes for the remove
+function, or at least what it was required to be in this case. I would 
+have two different remove functions. One would take in, in this case,
+a Website, and, given that the HashTable had it in one of its entries,
+remove it and NOT deallocate it, but rather leave that up to the user.
+If it didn't have it, simply return false, rather than true. The other 
+one would take in a key and remove all Websites in that key. Maybe it 
+would act like "get" in which it would return an array of Websites, and 
+take in the count for that matter. Or it could simply deallocate them all
+then and there.
+
+On another note, the memory footprint wasn't that great because I used 
+a dummy node for the lists, which, in hind sight, I probably shouldn't 
+have done. It's an extra 251 (because that's the prime number I chose)
+allocations, each of 16 bytes for the pointers in each of the Nodes.
+
+5) What would you do differently if you had more time to solve the problem?
+Honestly, I'm just glad this is over. Binary search trees are more fun anyways...
