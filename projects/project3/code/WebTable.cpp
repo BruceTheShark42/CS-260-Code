@@ -1,3 +1,13 @@
+/*
+ * WebTable.cpp
+ * 
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #3
+ * 
+ * The implementation of WebTable
+ */
+
 #include "WebTable.h"
 #include <cstring>
 
@@ -28,14 +38,17 @@ bool WebTable::add(const char *key, const Website &site) {
 }
 
 Website* WebTable::get(const char *key, size_t &count) const {
+	// The beginning of the list
 	Node *list = entries[hash(key)];
 	if (list->next == nullptr)
 		return nullptr;
 	
 	count = 1;
 	for (Node *node = list->next->next; node != nullptr; node = node->next, ++count);
+	// The Website array
 	Website *sites = new Website[count];
 	
+	// The index, but out here instead of within the for loop because I can't declare more than one type of variable in there >:/
 	size_t i = 0;
 	for (Node *node = list->next; node != nullptr; sites[i++] = *node->site, node = node->next);
 	return sites;
@@ -43,6 +56,7 @@ Website* WebTable::get(const char *key, size_t &count) const {
 
 bool WebTable::set(const char *key, const Website &site) {
 	for (Node *node = entries[hash(key)]->next; node != nullptr; node = node->next) {
+		// Makes this run ever so slightly faster because the "node     ->     site" doesn't have to run every time, although, the compiler probably optimizes this to oblivion
 		Website *website = node->site;
 		if (website->checkURL(site.getURL())) {
 			website->setReview(site.getReview());
@@ -57,6 +71,7 @@ void WebTable::cull() {
 	for (size_t i = 0; i < NUM_HASHES; ++i) {
 		for (Node *node = entries[i]; node->next != nullptr; ) {
 			if (node->next->site->getRating() == 1) {
+				// The Node to delete
 				Node *toDelete = node->next;
 				node->next = node->next->next;
 				delete toDelete;
@@ -82,10 +97,12 @@ void WebTable::printRec(ostream &ostr, Node *node) const {
 size_t WebTable::hash(const char *key) const {
 	if (key == nullptr)
 		return 0;
+	// The length of the topic
 	size_t len = strlen(key);
 	if (!len)
 		return 1;
 	
+	// For calculating the hash index
 	size_t sum = 0, indexSum = 0;
 	for (size_t i = 0; i < len; indexSum += ++i)
 		sum += (i + 1) * key[i];

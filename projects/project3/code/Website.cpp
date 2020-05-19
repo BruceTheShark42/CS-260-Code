@@ -1,3 +1,13 @@
+/*
+ * Website.cpp
+ * 
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #3
+ * 
+ * The implementation of Website
+ */
+
 #include "Website.h"
 #include <cstring>
 

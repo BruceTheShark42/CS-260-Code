@@ -1,3 +1,20 @@
+/*
+ * main.cpp
+ *
+ * CS Website Rating Simulator
+ * 
+ * Bruce Cosgrove
+ * 18 May 2020
+ * CS 260
+ * Assignment #3
+ * 
+ * Inputs:
+ *  websites.txt - the website info
+ * 
+ * Outputs:
+ *  std::cout - response to user input
+ */
+
 #include "WebTable.h"
 #include <iostream>
 #include <fstream>
@@ -64,19 +81,36 @@ int readInt(const char *message, bool &fail, bool chainErrors = false) {
 	}
 }
 
+/*
+ * Loads data from a file into a WebTable
+ * 
+ * Inputs:
+ *  path - the path to the file
+ *  table - the WebTable to load to
+ * 
+ * Outputs:
+ *  returns if the table could be loaded with the contents of the file
+ */
 bool loadFile(const char *path, WebTable &table) {
+	// The file
 	ifstream file(path);
 	if (file.is_open()) {
+		// The number of topics in the file
 		size_t numKeys;
 		file >> numKeys;
 		for (size_t i = 0; i < numKeys; ++i) {
+			// The number of Websites in the topic
 			size_t numWebsites;
 			file >> numWebsites;
 			file.get();
+			
+			// The topic for adding the Websites to the WebTable
 			char *key = new char[MAX_CHARS];
 			file.getline(key, MAX_CHARS);
 			for (size_t j = 0; j < numWebsites; ++j) {
+				// The Website information
 				char *url = new char[MAX_CHARS], *summary = new char[MAX_CHARS], *review = new char[MAX_CHARS], rating;
+				
 				file.getline(url, MAX_CHARS, ' ');
 				file.get();
 				file.getline(summary, MAX_CHARS, '\"');
@@ -102,6 +136,16 @@ bool loadFile(const char *path, WebTable &table) {
 	return false;
 }
 
+/*
+ * Prints a list of all supported commands
+ * No succeed/fail potential, so no need for that clutter
+ * 
+ * Inputs:
+ *  none
+ * 
+ * Outputs:
+ *  a list of commands
+ */
 void printHelp() {
 	cout << "Commands:\n"
 		 << " \"add\" - add a Website\n"
@@ -114,31 +158,44 @@ void printHelp() {
 		 << " \"exit\" - exit the Website Rating Simulator\n";
 }
 
-// I really should just package this menu thing into its own class 
-// So I don't have to worry about it. I'd probably have to pass 
-// lambdas as parameters to it though for each option or maybe 
-// even raw function pointers. I could use std::function, but 
-// only if we're allowed to, that is.
+/*
+ * I really should just package this menu thing into its own class
+ * So I don't have to worry about it. I'd probably have to pass
+ * lambdas as parameters to it though for each option or maybe
+ * even raw function pointers. I could use std::function, but
+ * only if we're allowed to, that is.
+ * Ironically, to do this, I think I would need a HashTable...
+ * 
+ * Inputs:
+ *  none
+ * 
+ * Outputs:
+ *  whether or not the program executed correctly
+ */
 int main() {
 	cout << "Welcome to Website Rating Simulator!\n";
 	printHelp();
 	
+	// The ADT
 	WebTable table;
 	if (!loadFile("websites.txt", table)) {
 		cout << "Couldn't load the file. :(\n";
 		return 1;
 	}
 	
+	// If the program should continue
 	bool running = true;
 	while (running) {
+		// The user input
 		char *input = readString("\n> ");
 		
 		if (!strcmp(input, "add")) {
+			// All of these are the Website information
 			char *key = readString("Enter the topic: ");
 			char *url = readString("Enter the URL: ");
 			char *summary = readString("Enter the summary: ");
 			char *review = readString("Enter the review: ");
-			bool fail = false;
+			bool fail = false; // Except this guy, it's super obvious that it to see if reading the rating failed, therefore, I shouldn't need these comments for obvious variables, yet here we are... mindlessly typing away at my keyboard because I don't want to comment more, even though I am literally doing just that... but whatever, let's just continue with this... commenting...................
 			int rating = readInt("Enter the rating: ", fail);
 			
 			if (fail) {
@@ -153,9 +210,12 @@ int main() {
 			delete[] summary;
 			delete[] review;
 		} else if(!strcmp(input, "get")) {
+			// The topic
 			char *key = readString("Enter the topic: ");
 			
+			// The number of Websites
 			size_t count = 0;
+			// The Websites
 			Website *sites = table.get(key, count);
 			for (size_t i = 0; i < count; ++i)
 				cout << sites[i];
@@ -166,15 +226,17 @@ int main() {
 			if (!count)
 				cout << "No websites matched the topic.\n";
 		} else if(!strcmp(input, "set")) {
+			// The Website information
 			char *key = readString("Enter the topic: ");
 			char *url = readString("Enter the URL: ");
 			char *review = readString("Enter the review: ");
-			bool fail = false;
+			bool fail = false; // Don't get me started again...
 			int rating = readInt("Enter the rating: ", fail);
 			
 			if (fail || rating < 1 || rating > 5) {
 				cout << "Invalid rating\n";
 			} else {
+				// The Website
 				Website site;
 				site.setURL(url);
 				site.setReview(review);
@@ -193,6 +255,7 @@ int main() {
 			table.cull();
 			cout << "All Websites with a 1 star review were removed.\n";
 		} else if(!strcmp(input, "show")) {
+			// The topic
 			char *key = readString("Enter the key: ");
 			table.print(cout, key);
 			delete[] key;
