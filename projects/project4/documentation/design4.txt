@@ -1,0 +1,58 @@
+Bruce Cosgrove
+
+The methods that the WebTree must have are as follows:
+	 1) The no-argument constructor to allocate all required memory 
+		and initialize values.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: no parameters are
+			passed into this constructor. Therefore, there is 
+			no concept sharing whatsoever.
+		Recursive: no.
+	 2) The destructor to deallocate all required memory.
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: destructors do not 
+			take in any parameters in C++ as far as I am 
+			aware of. This is the same reason why the 
+			constructor "shields" the caller, simply 
+			because there is nothing to sheild.
+		Recursive: no.
+	 3) A method to recursively destroy a WebTree (called by the 
+			destructior).
+		Success/Failure Report: not applicable.
+		Abstract Concept Sheilding: this method is private.
+		Recursive: yes.
+	 4) A method to add a Website
+		Success/Failure Report: not applicable.
+		Abstract Concept Sheilding: the Website is passed 
+			in, and nothing else.
+		Recursive: no.
+	 5) A method to remove all Websites with a given topic
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: the only parameter is the 
+			topic, which is just a cstring.
+		Recursive: no.
+	 6) A method to remove a Website with a keyword
+		Success/Failure Report: returns if the Website was found
+		Abstract Concept Sheilding: the only parameter is the 
+			keyword, which is just a cstring.
+		Recursive: no.
+	 7) A method to get a Website with a keyword
+		Success/Failure Report: returns if the Website was found
+		Abstract Concept Sheilding: the only parameters are the 
+			keyword, which is just a cstring, and the Website 
+			to write to if found.
+		Recursive: no.
+	 8) A method to display all Websites
+		Success/Failure Report: not applicable
+		Abstract Concept Sheilding: no parameters means no 
+			concepts to sheild.
+		Recursive: no.
+
+Notes:
+	 1) None right now.
+
+Data structures that will be used in the program:
+	 1) WebTree
+		 a) Node
+	 2) Website
+
