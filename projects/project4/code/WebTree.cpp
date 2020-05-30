@@ -40,28 +40,27 @@ void WebTree::removeAll(const char *topic) {
 }
 
 void WebTree::removeAllRec(const char *topic, Node *&node) {
-	if (node) {
-		if (node->site->checkTopic(topic))
-			remove(node);
-		if (node) removeAllRec(topic, node->left);
-		if (node) removeAllRec(topic, node->right);
-	}
+	while (node && node->site->checkTopic(topic))
+		remove(node);
+	if (node) removeAllRec(topic, node->left);
+	if (node) removeAllRec(topic, node->right);
 }
 
 bool WebTree::remove(const char *keyword) {
 	if (root) {
-		root = remove(root, keyword);
-		return true;
+		bool removed = true;
+		root = remove(root, keyword, removed);
+		return removed;
 	}
 	return false;
 }
 
-WebTree::Node* WebTree::remove(Node *node, const char *keyword) {
+WebTree::Node* WebTree::remove(Node *node, const char *keyword, bool &removed) {
 	if (node) {
-		if (*node->site < keyword) node->right = remove(node->right, keyword);
-		else if (*node->site > keyword) node->left = remove(node->left, keyword);
+		if (*node->site < keyword) node->right = remove(node->right, keyword, removed);
+		else if (*node->site > keyword) node->left = remove(node->left, keyword, removed);
 		else remove(node);
-	}
+	} else removed = false;
 	return node;
 }
 
@@ -80,7 +79,8 @@ void WebTree::remove(Node *&node) {
 	} else { // Both children
 		Node *toDelete = getMinNode(node->right);
 		*node->site = *toDelete->site; // to call the Website::operator=(const Website&)
-		node->right = remove(node->right, toDelete->site->getKeyword());
+		bool notUsed;
+		node->right = remove(node->right, toDelete->site->getKeyword(), notUsed);
 	}
 }
 
