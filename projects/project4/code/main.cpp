@@ -4,9 +4,9 @@
  * CS Website Rating Simulator
  * 
  * Bruce Cosgrove
- * 18 May 2020
+ * 1 June 2020
  * CS 260
- * Assignment #3
+ * Assignment #4
  * 
  * Inputs:
  *  websites.txt - the website info
@@ -82,11 +82,11 @@ int readInt(const char *message, bool &fail, bool chainErrors = false) {
 }
 
 /*
- * Loads data from a file into a WebTable
+ * Loads data from a file into a WebTree
  * 
  * Inputs:
  *  path - the path to the file
- *  table - the WebTable to load to
+ *  tree - the WebTree to load to
  * 
  * Outputs:
  *  returns if the table could be loaded with the contents of the file
@@ -104,7 +104,7 @@ bool loadFile(const char *path, WebTree &tree) {
 			file >> numWebsites;
 			file.get();
 			
-			// The topic for adding the Websites to the WebTable
+			// The topic for adding the Websites to the WebTree
 			char *topic = new char[MAX_CHARS];
 			file.getline(topic, MAX_CHARS);
 			for (size_t j = 0; j < numWebsites; ++j) {

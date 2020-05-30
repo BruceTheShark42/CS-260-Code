@@ -1,8 +1,16 @@
+/*
+ * WebTree.cpp
+ * 
+ * Bruce Cosgrove
+ * CS 260
+ * Assignment #4
+ * 
+ * The implementation of WebTree
+ */
+
 #include "WebTree.h"
 
 using namespace std;
-
-#define WEB_MAX(a, b) return (a) > (b) ? (a) : (b);
 
 WebTree::WebTree()
 		: root(nullptr) {}
@@ -33,6 +41,7 @@ void WebTree::insertRec(const Website &site, Node *node) {
 		else node->right = new Node(new Website(site));
 	}
 	// if same, nothing happens
+	// could easily return false, but thats not needed within the scope of this assignment
 }
 
 void WebTree::removeAll(const char *topic) {
