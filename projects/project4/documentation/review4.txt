@@ -2,50 +2,36 @@ Bruce Cosgrove
 CS 260
 
 1) How well did the data structure selected perform for the assigned application?
-The ADT worked as well as it could have for this assignment. Although, if anyone 
-were to propose this idea as an actual thing they wanted to do, I would throw it 
-out the window if I didn't care about littering. But, scince I do, I would shred 
-it to pieces.
+I do like that the Websites were sorted, although, that's just a consequence of 
+using a Binary Search Tree. Then again, by that definition, it did it's job, and 
+rather nicely, I might add. Once I figured out what to do, it was all relatively 
+simple, when compared to the project #3. In factm I'd argue that this is a 
+better way entirely to implement... whatever it is projects 3 & 4 were based on.
+Maybe a rudimentary version of boommarks?
 
 2) Would a different data structure work better? If so, which one and why...
-For every assignment (an) ADT(s) are picked. The assignments are literally 
-to have you implement and use the ADT(s). They are tailored specifically 
-around them, and often rely too much on the ADT(s) to the extent that it 
-may not even work with another one, let alone as efficiently as the ADT(s) 
-picked, with the notable exception of assignment #2, in which my opinion 
-differed from that of the chosen ADTs. However, that is not the case for 
-this assignment. So, I have to say that the HashTable is practically, but 
-not really, required for this assignment. I mean, I could just have two 
-arrays, one of the keys, and the other with the chains, though worst case 
-access time would be O(n) instead of O(1).
+Better... in what sense? I can think of a lot of things the BST did better at 
+than the HashTable. For example: Websites automatically sorted, access time is 
+faster, no required arrays nor possible duplicates, less memory usage, etc.
+Wow, this is starting to turn into an answer to question #3, so let's just go
+there.
 
 3) What was efficient about your design and use of the data structure?
-By nature, it's fast. O(1) read/write time. I can't really think of 
-anything else to put here. It was too generic to excell at anything.
-Oh! I just remembered I have to talk about the hash function.
-
-I did some testing, and, for the most part, 98 times in 100, as far as 
-my testing is concerned, the hash index maps to a separate value. It 
-does, however, take O(n) time to generate, where n is the length of 
-the key. But has O(1) with respect to the entire HashTable.
+No extra code was required to sort the Websites when printing, it all just 
+happened as a consequence of using a BST. It was easier to code and made much 
+more sense than the first couple of hours of work that I accidently deleted.
+But I'm so glad I did that because it was a nightmare to try and figure out 
+anything. (continued in #4 VVVVVV)
 
 4) What was not efficient?
-The use of the "set" function. In my opinion, that should not even exist 
-for making an actual HashTable. The same exact thing goes for the remove
-function, or at least what it was required to be in this case. I would 
-have two different remove functions. One would take in, in this case,
-a Website, and, given that the HashTable had it in one of its entries,
-remove it and NOT deallocate it, but rather leave that up to the user.
-If it didn't have it, simply return false, rather than true. The other 
-one would take in a key and remove all Websites in that key. Maybe it 
-would act like "get" in which it would return an array of Websites, and 
-take in the count for that matter. Or it could simply deallocate them all
-then and there.
-
-On another note, the memory footprint wasn't that great because I used 
-a dummy node for the lists, which, in hind sight, I probably shouldn't 
-have done. It's an extra 251 (because that's the prime number I chose)
-allocations, each of 16 bytes for the pointers in each of the Nodes.
+For starters, it wouldn't have even been classified as a BST because it was NOT 
+sorted in the slightest. In fact, I manually sorted the Websites for printing 
+them alphabetically. Fortunately, once I deleted that work, I realized all that.
+That's a reason why I like starting from scratch.
 
 5) What would you do differently if you had more time to solve the problem?
-Honestly, I'm just glad this is over. Binary search trees are more fun anyways...
+One thing is I would make some functions in the WebTree easier to use. Their 
+parameters and return values, mostly Node* remove(Node*, const char*, bool&)
+was quite cluttered and could have been reduced to 
+bool remove(Node*&, const char*). Not to mention the bool notUsed; in 
+void remove(Node*&).
