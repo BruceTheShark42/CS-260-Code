@@ -91,7 +91,7 @@ int readInt(const char *message, bool &fail, bool chainErrors = false) {
  * Outputs:
  *  returns if the table could be loaded with the contents of the file
  */
-bool loadFile(const char *path, WebTable &table) {
+bool loadFile(const char *path, WebTree &tree) {
 	// The file
 	ifstream file(path);
 	if (file.is_open()) {
@@ -105,13 +105,18 @@ bool loadFile(const char *path, WebTable &table) {
 			file.get();
 			
 			// The topic for adding the Websites to the WebTable
-			char *key = new char[MAX_CHARS];
-			file.getline(key, MAX_CHARS);
+			char *topic = new char[MAX_CHARS];
+			file.getline(topic, MAX_CHARS);
 			for (size_t j = 0; j < numWebsites; ++j) {
 				// The Website information
-				char *url = new char[MAX_CHARS], *summary = new char[MAX_CHARS], *review = new char[MAX_CHARS], rating;
+				char *keyword = new char[MAX_CHARS], *url = new char[MAX_CHARS], *summary = new char[MAX_CHARS], *review = new char[MAX_CHARS], rating;
 				
-				file.getline(url, MAX_CHARS, ' ');
+				file.get();
+				file.getline(keyword, MAX_CHARS, '\"');
+				file.get();
+				file.get();
+				file.getline(url, MAX_CHARS, '\"');
+				file.get();
 				file.get();
 				file.getline(summary, MAX_CHARS, '\"');
 				file.get();
@@ -121,13 +126,14 @@ bool loadFile(const char *path, WebTable &table) {
 				file >> rating;
 				file.get();
 				
-				table.add(key, Website(url, summary, review, rating - '0'));
+				tree.insert(Website(topic, keyword, url, summary, review, rating - '0'));
 				
+				delete[] keyword;
 				delete[] url;
 				delete[] summary;
 				delete[] review;
 			}
-			delete[] key;
+			delete[] topic;
 		}
 		
 		file.close();
@@ -148,12 +154,10 @@ bool loadFile(const char *path, WebTable &table) {
  */
 void printHelp() {
 	cout << "Commands:\n"
-		 << " \"add\" - add a Website\n"
-		 << " \"get\" - get all Websites with a key\n"
-		 << " \"set\" - set the review and rating for a Website\n"
-		 << " \"cull\" - remove all Websites with a 1 star rating\n"
-		 << " \"show\" - display all Websites with a key\n"
-		 << " \"all\" - display all Websites\n"
+		 << " \"insert\" - add a Website\n"
+		 << " \"remove\" - remove (a) Weibsite(s)\n"
+		 << " \"search\" - get a Website with a keyword\n"
+		 << " \"print\" - display all Websites\n"
 		 << " \"help\" - show this list of commands\n"
 		 << " \"exit\" - exit the Website Rating Simulator\n";
 }
@@ -177,8 +181,8 @@ int main() {
 	printHelp();
 	
 	// The ADT
-	WebTable table;
-	if (!loadFile("websites.txt", table)) {
+	WebTree tree;
+	if (!loadFile("websites.txt", tree)) {
 		cout << "Couldn't load the file. :(\n";
 		return 1;
 	}
@@ -189,78 +193,52 @@ int main() {
 		// The user input
 		char *input = readString("\n> ");
 		
-		if (!strcmp(input, "add")) {
+		if (!strcmp(input, "insert")) {
 			// All of these are the Website information
-			char *key = readString("Enter the topic: ");
+			char *topic = readString("Enter the topic: ");
+			char *keyword = readString("Enter the keyword: ");
 			char *url = readString("Enter the URL: ");
 			char *summary = readString("Enter the summary: ");
 			char *review = readString("Enter the review: ");
 			bool fail = false; // Except this guy, it's super obvious that it to see if reading the rating failed, therefore, I shouldn't need these comments for obvious variables, yet here we are... mindlessly typing away at my keyboard because I don't want to comment more, even though I am literally doing just that... but whatever, let's just continue with this... commenting...................
 			int rating = readInt("Enter the rating: ", fail);
 			
-			if (fail) {
-				cout << "Invalid rating\n";
-			} else {
-				table.add(key, Website(url, summary, review, rating));
-				cout << "Added the website.\n";
-			}
-			
-			delete[] key;
-			delete[] url;
-			delete[] summary;
-			delete[] review;
-		} else if(!strcmp(input, "get")) {
-			// The topic
-			char *key = readString("Enter the topic: ");
-			
-			// The number of Websites
-			size_t count = 0;
-			// The Websites
-			Website *sites = table.get(key, count);
-			for (size_t i = 0; i < count; ++i)
-				cout << sites[i];
-			
-			delete[] key;
-			if (sites != nullptr) delete[] sites;
-			
-			if (!count)
-				cout << "No websites matched the topic.\n";
-		} else if(!strcmp(input, "set")) {
-			// The Website information
-			char *key = readString("Enter the topic: ");
-			char *url = readString("Enter the URL: ");
-			char *review = readString("Enter the review: ");
-			bool fail = false; // Don't get me started again...
-			int rating = readInt("Enter the rating: ", fail);
-			
 			if (fail || rating < 1 || rating > 5) {
 				cout << "Invalid rating\n";
 			} else {
-				// The Website
-				Website site;
-				site.setURL(url);
-				site.setReview(review);
-				site.setRating((char)rating);
-				if (table.set(key, site)) {
-					cout << "Changed the review and rating.\n";
-				} else {
-					cout << "Unable to change the review and rating.\n";
-				}
+				tree.insert(Website(topic, keyword, url, summary, review, rating));
+				cout << "Added the website.\n";
 			}
 			
-			delete[] key;
+			delete[] topic;
+			delete[] keyword;
 			delete[] url;
+			delete[] summary;
 			delete[] review;
-		} else if(!strcmp(input, "cull")) {
-			table.cull();
-			cout << "All Websites with a 1 star review were removed.\n";
-		} else if(!strcmp(input, "show")) {
-			// The topic
-			char *key = readString("Enter the key: ");
-			table.print(cout, key);
-			delete[] key;
-		} else if(!strcmp(input, "all")) {
-			cout << table;
+		} else if(!strcmp(input, "remove")) {
+			char *type = readString("Remove by \"topic\" or \"keyword\": ");
+			if (!strcmp(type, "topic")) {
+				char *topic = readString("Enter the topic: ");
+				tree.removeAll(topic);
+				cout << "All websites with that topic were removed.\n";
+				delete[] topic;
+			} else if (!strcmp(type, "keyword")) {
+				char *keyword = readString("Enter the keyword: ");
+				if (tree.remove(keyword)) cout << "Removed the website.\n";
+				else cout << "No matching website found to remove!\n";
+				delete[] keyword;
+			} else {
+				cout << "Unknown remove type!\n";
+			}
+			delete[] type;
+		} else if(!strcmp(input, "search")) {
+			char *keyword = readString("Enter the keyword: ");
+			Website site;
+			if (tree.get(keyword, site)) cout << "Here's what was found\n" << site;
+			else cout << "No matching website found!\n";
+			delete[] keyword;
+		} else if(!strcmp(input, "print")) {
+			cout << tree;
 		} else if(!strcmp(input, "help")) {
 			printHelp();
 		} else if(!strcmp(input, "exit")) {

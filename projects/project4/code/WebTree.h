@@ -16,6 +16,7 @@ public:
 private:
 	struct Node {
 		Node(Website *site);
+		~Node();
 		
 		Website *site;
 		Node *left, *right;
@@ -24,7 +25,7 @@ private:
 	void deleteRec(Node *node);
 	void insertRec(const Website &site, Node *node);
 	void removeAllRec(const char *topic, Node *&node);
-	Node* remove(Node *node, const Website &site);
+	Node* remove(Node *node, const char *keyword);
 	void remove(Node *&node);
 	Node* getMinNode(Node *node) const;
 	bool getRec(const char *keyword, Website &site, Node *node) const;

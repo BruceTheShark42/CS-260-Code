@@ -25,10 +25,10 @@ void WebTree::insert(const Website &site) {
 }
 
 void WebTree::insertRec(const Website &site, Node *node) {
-	if (node->site > site->getKeyword()) { // left side
+	if (*node->site > site.getKeyword()) { // left side
 		if (node->left) insertRec(site, node->left);
 		else node->left = new Node(new Website(site));
-	} else if (node->site < site->getKeyword()) { // right side
+	} else if (*node->site < site.getKeyword()) { // right side
 		if (node->right) insertRec(site, node->right);
 		else node->right = new Node(new Website(site));
 	}
@@ -41,31 +41,31 @@ void WebTree::removeAll(const char *topic) {
 
 void WebTree::removeAllRec(const char *topic, Node *&node) {
 	if (node) {
-		if (node->checkTopic(topic))
+		if (node->site->checkTopic(topic))
 			remove(node);
-		removeAllRec(node->left);
-		removeAllRec(node->right);
+		if (node) removeAllRec(topic, node->left);
+		if (node) removeAllRec(topic, node->right);
 	}
 }
 
 bool WebTree::remove(const char *keyword) {
-	if (hasSite(site)) {
-		root = remove(node, keyword);
+	if (root) {
+		root = remove(root, keyword);
 		return true;
 	}
 	return false;
 }
 
-WebTable::Node* WebTable::remove(Node *node, const char *keyword) {
+WebTree::Node* WebTree::remove(Node *node, const char *keyword) {
 	if (node) {
-		if (node->site < keyword) node->right = remove(node->right, keyword);
-		else if (node->site > keyword) node->left = remove(node->left, keyword);
+		if (*node->site < keyword) node->right = remove(node->right, keyword);
+		else if (*node->site > keyword) node->left = remove(node->left, keyword);
 		else remove(node);
 	}
 	return node;
 }
 
-void WebTable::remove(Node *&node) {
+void WebTree::remove(Node *&node) {
 	if (!node->left && !node->right) { // No children
 		delete node;
 		node = nullptr;
@@ -85,17 +85,11 @@ void WebTable::remove(Node *&node) {
 }
 
 WebTree::Node* WebTree::getMinNode(Node *node) const {
-	if (node) {
-		Node *left = getMinNode(node->left);
-		if (left) return left;
-		Node *right = getMinNode(node->right);
-		if (right) return right;
-	}
-	return node;
+	return node->left ? getMinNode(node->left) : node;
 }
 
 bool WebTree::get(const char *keyword, Website &site) const {
-	return getRec(keyword, website, root);
+	return getRec(keyword, site, root);
 }
 
 bool WebTree::getRec(const char *keyword, Website &site, Node *node) const {
@@ -104,7 +98,7 @@ bool WebTree::getRec(const char *keyword, Website &site, Node *node) const {
 			site = *node->site;
 			return true;
 		}
-		if (getRec(node->left) || getRec(node->right)) return true;
+		if (getRec(keyword, site, node->left) || getRec(keyword, site, node->right)) return true;
 	}
 	return false;
 }
@@ -112,15 +106,19 @@ bool WebTree::getRec(const char *keyword, Website &site, Node *node) const {
 WebTree::Node::Node(Website *site)
 		: site(site), left(nullptr), right(nullptr) {}
 
+WebTree::Node::~Node() {
+	delete site;
+}
+
 std::ostream& operator<<(std::ostream &ostr, const WebTree &tree) {
-	printRec(ostr, tree.root);
+	tree.printRec(ostr, tree.root);
 	return ostr;
 }
 
-void WebTree::printRec(std::ostream &ostr, WebTable::Node *node) const {
+void WebTree::printRec(std::ostream &ostr, WebTree::Node *node) const {
 	if (node) {
-		printRec(node->left);
-		cout *node->site;
-		printRec(node->right);
+		printRec(ostr, node->left);
+		ostr << *node->site;
+		printRec(ostr, node->right);
 	}
 }

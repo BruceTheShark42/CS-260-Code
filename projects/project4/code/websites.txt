@@ -1,16 +1,16 @@
 3
 3 Google
-https://www.google.com/ "Google's main website for their search engine." "I don't ever use this website as the task bar exists." 1
-https://images.google.com/ "Google's main website for their image search engine." "Not used that often, but it gets me what I need when I do." 3
-https://www.youtube.com/ "Google's main platform for video sharing." "Great content, but the ads are annoying, as they are no matter what..." 4
+"google search" "https://www.google.com/" "Google's main website for their search engine." "I don't ever use this website as the task bar exists." 1
+"google images" "https://images.google.com/" "Google's main website for their image search engine." "Not used that often, but it gets me what I need when I do." 3
+"youtube" "https://www.youtube.com/" "Google's main platform for video sharing." "Great content, but the ads are annoying, as they are no matter what..." 4
 3 Purchases
-https://pcpartpicker.com/ "Prices for many PC parts" "Create a custom PC and get the parts mailed to you from one place." 4
-https://www.amazon.com/ "Prices for many things such as clothing, USBs, movies. etc." "Their morals suck, like... really suck." 1
-https://www.newegg.com/ "Electronics, Misc entertainment." "User friendly, low prices" 4
+"pc part picker" "https://pcpartpicker.com/" "Prices for many PC parts" "Create a custom PC and get the parts mailed to you from one place." 4
+"amazon" "https://www.amazon.com/" "Prices for many things such as clothing, USBs, movies. etc." "Their morals suck, like... really suck." 1
+"new egg" "https://www.newegg.com/" "Electronics, Misc entertainment." "User friendly, low prices" 4
 6 Coding
-https://stackoverflow.com/ "Answers to various questions, and able to ask your own." "Dark theme beta is out, which is a great plus." 5
-https://www.geeksforgeeks.org/ "Sometimes helpful programming techniques/concepts." "I don't like their coding styles." 3
-http://www.cplusplus.com/ "General C++ info." "So... many... little... inconsistencies..." 3
-https://superuser.com/ "Basically the same as stack overflow but more for computers." "Rarely used." 2
-https://www.mathsisfun.com/ "Math." "Used when I forget matrix or vector math... or I'm bored" 4
-https://www.cemetech.net/ "Programming fannatics, calculator emulation." "I used to use this quite often, until I randomly just stopped." 3
+"stack overflow" "https://stackoverflow.com/" "Answers to various questions, and able to ask your own." "Dark theme beta is out, which is a great plus." 5
+"geeks for geeks" "https://www.geeksforgeeks.org/" "Sometimes helpful programming techniques/concepts." "I don't like their coding styles." 3
+"c++" "http://www.cplusplus.com/" "General C++ info." "So... many... little... inconsistencies..." 3
+"superuser" "https://superuser.com/" "Basically the same as stack overflow but more for computers." "Rarely used." 2
+"math is fun" "https://www.mathsisfun.com/" "Math." "Used when I forget matrix or vector math... or I'm bored" 4
+"cemetech" "https://www.cemetech.net/" "Programming fannatics, calculator emulation." "I used to use this quite often, until I randomly just stopped." 3

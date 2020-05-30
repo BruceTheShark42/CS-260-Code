@@ -98,6 +98,17 @@ public:
 	bool checkKeyword(const char *keyword) const;
 	
 	/*
+	 * Gets the keyword
+	 * 
+	 * Inputs:
+	 *  none
+	 * 
+	 * Outputs:
+	 *  the keyword
+	 */
+	inline const char* getKeyword() const { return keyword; }
+	
+	/*
 	 * Sets the keyword
 	 * 
 	 * Inputs:
